@@ -3059,7 +3059,7 @@ NetLogo 6.2.0
   <experiment name="experiment" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <final>export-world ( word "first-try" random-float 10.0 ".csv"</final>
+    <final>export-world ( word "first-try" random-float 10.0 ".csv"</final>)
     <timeLimit steps="350"/>
     <exitCondition>gdp-income &lt; 10000</exitCondition>
     <enumeratedValueSet variable="safe-zone-switch">
