@@ -383,6 +383,7 @@ to setup-nobility
     set wealth random-normal (initial-capital * 5) initial-capital
     set shape "person"
     set color blue
+    set size 0.1
   ]
 end
 
