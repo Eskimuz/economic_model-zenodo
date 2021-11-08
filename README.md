@@ -2,6 +2,7 @@
 revenge against capitalism
 
 programs needed: Netlogo and Java
+runs can be programmed directly in XML (I'm not familiar tho, you?)
 
 Netlogo has a built in Monte-Carlo simulator called behaviorspace: https://ccl.northwestern.edu/netlogo/docs/behaviorspace.html
 
