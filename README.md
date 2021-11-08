@@ -8,7 +8,8 @@ Netlogo has a built in Monte-Carlo simulator called behaviorspace: https://ccl.n
 
 how to run:
 
-run netlogo.headless
+in installation folder run netlogo.headless
+
 --model (insert local path to folder here/ "nameofthemodel.netlogo") \
 --experiment "experiment1"
 
