@@ -23,3 +23,4 @@ to do:
 - run the 3.6 million simulations
 - create a pipeline for analyzing the results
 
+look into https://pynetlogo.readthedocs.io/en/latest/install.html
