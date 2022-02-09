@@ -2854,7 +2854,7 @@ NetLogo 6.2.0
   <experiment name="low-initial-wages-no-government" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <final>export-world ( word "low-initial-wages-no-government" random-float 10.0 ".csv"</final>
+    <final>export-world ( word "low-initial-wages-no-government" random-float 10.0 ".csv"</final> )
     <timeLimit steps="300"/>
     <exitCondition>gdp-income &lt; 10000</exitCondition>
     <enumeratedValueSet variable="initial-labor-price-workers">
@@ -2981,7 +2981,7 @@ NetLogo 6.2.0
   <experiment name="high-initial-wages-yes-government" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <final>export-world ( word "high-initial-wages-yes-government" random-float 10.0 ".csv"</final>
+    <final>export-world ( word "high-initial-wages-yes-government" random-float 10.0 ".csv"</final>)
     <timeLimit steps="300"/>
     <exitCondition>gdp-income &lt; 10000</exitCondition>
     <enumeratedValueSet variable="initial-labor-price-workers">
@@ -3108,7 +3108,7 @@ NetLogo 6.2.0
   <experiment name="low-initial-wages-no-government" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <final>export-world ( word "low-initial-wages-yes-government" random-float 10.0 ".csv"</final>
+    <final>export-world ( word "low-initial-wages-yes-government" random-float 10.0 ".csv"</final> )
     <timeLimit steps="300"/>
     <exitCondition>gdp-income &lt; 10000</exitCondition>
     <enumeratedValueSet variable="initial-labor-price-workers">
@@ -3235,7 +3235,7 @@ NetLogo 6.2.0
   <experiment name="high-initial-wages-yes-government" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <final>export-world ( word "high-initial-wages-no-government" random-float 10.0 ".csv"</final>
+    <final>export-world ( word "high-initial-wages-no-government" random-float 10.0 ".csv"</final> )
     <timeLimit steps="300"/>
     <exitCondition>gdp-income &lt; 10000</exitCondition>
     <enumeratedValueSet variable="initial-labor-price-workers">
