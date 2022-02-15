@@ -1664,7 +1664,7 @@ CHOOSER
 147
 initial-labor-price-workers
 initial-labor-price-workers
-5 7 10 15
+7 10 15
 0
 
 CHOOSER
@@ -1765,7 +1765,7 @@ CHOOSER
 number-of-workers
 number-of-workers
 100 1000 5000 10000 15000 30000
-4
+5
 
 CHOOSER
 552
@@ -1775,7 +1775,7 @@ CHOOSER
 number-of-bourgeoisie
 number-of-bourgeoisie
 100 500 1000 2000 3000 5000
-2
+3
 
 CHOOSER
 679
@@ -1845,7 +1845,7 @@ CHOOSER
 trans-cost
 trans-cost
 1 2500 5000 10000
-2
+1
 
 TEXTBOX
 332
@@ -2045,7 +2045,7 @@ CHOOSER
 tax-rate
 tax-rate
 1 1.01 1.02 1.03 1.04 1.05 1.1
-2
+0
 
 CHOOSER
 726
@@ -2854,10 +2854,11 @@ NetLogo 6.2.0
   <experiment name="low-initial-wages-no-government" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <final>export-world ( word "low-initial-wages-no-government" random-float 10.0 ".csv"</final> )
+    <final>export-world ( word "low-initial-wages-no-government " random-float 1.0 ".csv")</final>
     <timeLimit steps="300"/>
+    <exitCondition>gdp-income &lt; 10000</exitCondition>
     <enumeratedValueSet variable="initial-labor-price-workers">
-      <value value="5"/>
+      <value value="7"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-capital-firms">
       <value value="500"/>
@@ -2980,8 +2981,9 @@ NetLogo 6.2.0
   <experiment name="high-initial-wages-yes-government" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <final>export-world ( word "high-initial-wages-yes-government" random-float 10.0 ".csv"</final>)
+    <final>export-world ( word "high-initial-wages-yes-government" random-float 1.0 ".csv")</final>
     <timeLimit steps="300"/>
+    <exitCondition>gdp-income &lt; 10000</exitCondition>
     <enumeratedValueSet variable="initial-labor-price-workers">
       <value value="15"/>
     </enumeratedValueSet>
@@ -3106,10 +3108,11 @@ NetLogo 6.2.0
   <experiment name="low-initial-wages-no-government" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <final>export-world ( word "low-initial-wages-yes-government" random-float 10.0 ".csv"</final> )
+    <final>export-world ( word "low-initial-wages-yes-government" random-float 10.0 ".csv"</final>
     <timeLimit steps="300"/>
+    <exitCondition>gdp-income &lt; 10000</exitCondition>
     <enumeratedValueSet variable="initial-labor-price-workers">
-      <value value="5"/>
+      <value value="7"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="government-features">
       <value value="true"/>
@@ -3232,8 +3235,9 @@ NetLogo 6.2.0
   <experiment name="high-initial-wages-yes-government" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <final>export-world ( word "high-initial-wages-no-government" random-float 10.0 ".csv"</final> )
+    <final>export-world ( word "high-initial-wages-no-government" random-float 10.0 ".csv"</final>
     <timeLimit steps="300"/>
+    <exitCondition>gdp-income &lt; 10000</exitCondition>
     <enumeratedValueSet variable="initial-labor-price-workers">
       <value value="15"/>
     </enumeratedValueSet>
@@ -3355,22 +3359,13 @@ NetLogo 6.2.0
       <value value="true"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="one-time" repetitions="1" runMetricsEveryStep="false">
+  <experiment name="one-time" repetitions="1" sequentialRunOrder="false" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
-    <final>export-world ( word "one-time" random-float 10.0 ".csv"</final> )
+    <final>export-world ( word "low-initial-wages-no-government " random-float 1.0 ".csv")</final>
     <timeLimit steps="300"/>
     <enumeratedValueSet variable="initial-labor-price-workers">
-      <value value="15"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-household-wealth">
-      <value value="15"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-labor-price-employers">
-      <value value="15"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="government-features">
-      <value value="false"/>
+      <value value="7"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-capital-firms">
       <value value="500"/>
@@ -3420,6 +3415,9 @@ NetLogo 6.2.0
     <enumeratedValueSet variable="service-distance-multiplier">
       <value value="1.5"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-household-wealth">
+      <value value="5"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="number-of-bourgeoisie">
       <value value="2000"/>
     </enumeratedValueSet>
@@ -3459,6 +3457,9 @@ NetLogo 6.2.0
     <enumeratedValueSet variable="distribution">
       <value value="7"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-labor-price-employers">
+      <value value="7"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="initial-service-price">
       <value value="15"/>
     </enumeratedValueSet>
@@ -3467,6 +3468,9 @@ NetLogo 6.2.0
     </enumeratedValueSet>
     <enumeratedValueSet variable="price-delta">
       <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-features">
+      <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="distance-setup">
       <value value="10"/>
