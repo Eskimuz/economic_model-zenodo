@@ -1664,7 +1664,7 @@ CHOOSER
 147
 initial-labor-price-workers
 initial-labor-price-workers
-7 10 15
+5 7 10 15
 0
 
 CHOOSER
@@ -1764,7 +1764,7 @@ CHOOSER
 93
 number-of-workers
 number-of-workers
-100 1000 5000 10000 15000
+100 1000 5000 10000 15000 30000
 4
 
 CHOOSER
@@ -2856,7 +2856,6 @@ NetLogo 6.2.0
     <go>go</go>
     <final>export-world ( word "low-initial-wages-no-government" random-float 10.0 ".csv"</final> )
     <timeLimit steps="300"/>
-    <exitCondition>gdp-income &lt; 10000</exitCondition>
     <enumeratedValueSet variable="initial-labor-price-workers">
       <value value="5"/>
     </enumeratedValueSet>
@@ -2983,7 +2982,6 @@ NetLogo 6.2.0
     <go>go</go>
     <final>export-world ( word "high-initial-wages-yes-government" random-float 10.0 ".csv"</final>)
     <timeLimit steps="300"/>
-    <exitCondition>gdp-income &lt; 10000</exitCondition>
     <enumeratedValueSet variable="initial-labor-price-workers">
       <value value="15"/>
     </enumeratedValueSet>
@@ -3110,7 +3108,6 @@ NetLogo 6.2.0
     <go>go</go>
     <final>export-world ( word "low-initial-wages-yes-government" random-float 10.0 ".csv"</final> )
     <timeLimit steps="300"/>
-    <exitCondition>gdp-income &lt; 10000</exitCondition>
     <enumeratedValueSet variable="initial-labor-price-workers">
       <value value="5"/>
     </enumeratedValueSet>
@@ -3237,7 +3234,132 @@ NetLogo 6.2.0
     <go>go</go>
     <final>export-world ( word "high-initial-wages-no-government" random-float 10.0 ".csv"</final> )
     <timeLimit steps="300"/>
-    <exitCondition>gdp-income &lt; 10000</exitCondition>
+    <enumeratedValueSet variable="initial-labor-price-workers">
+      <value value="15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-household-wealth">
+      <value value="15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-labor-price-employers">
+      <value value="15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-features">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-capital-firms">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-demand">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="firm-labor">
+      <value value="25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="foreing-markup">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="nobles-ratio-wealth">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="government-initial-wealth">
+      <value value="10000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="markup">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-nobles">
+      <value value="100"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="change-chance">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="foreign-market-features">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="tax-rate">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="bourgeoisie-ratio-wealth">
+      <value value="30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-coal">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="trans-cost">
+      <value value="2500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-change-chance">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="service-distance-multiplier">
+      <value value="1.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-bourgeoisie">
+      <value value="2000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-workers">
+      <value value="30000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="firm-productivity">
+      <value value="6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-capital-farms">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="time">
+      <value value="100"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="reproduction">
+      <value value="250"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="industrial-switch-probability">
+      <value value="0.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-cities">
+      <value value="15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="percent-government-workers">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-foreing-percentage">
+      <value value="0.05"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="safe-zone">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-firms">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="distribution">
+      <value value="7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-service-price">
+      <value value="15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="service-productivity">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="price-delta">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="distance-setup">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="firm-industrial-labor">
+      <value value="100"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-industrial-productivity">
+      <value value="15"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="testing">
+      <value value="true"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="one-time" repetitions="1" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <final>export-world ( word "one-time" random-float 10.0 ".csv"</final> )
+    <timeLimit steps="300"/>
     <enumeratedValueSet variable="initial-labor-price-workers">
       <value value="15"/>
     </enumeratedValueSet>
