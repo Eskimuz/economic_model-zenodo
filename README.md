@@ -44,3 +44,9 @@ to do:
 - create a pipeline for analyzing the results
 
 look into https://pynetlogo.readthedocs.io/en/latest/install.html
+
+# Docker image
+The image is in docker hub with this name biocorecrg/econ:0.01
+
+
+
