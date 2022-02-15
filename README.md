@@ -17,9 +17,16 @@ Run new file Industrial-Revolution-17-01-2022, rewritten and corrected:
 
 in installation folder run netlogo.headless
 
---model (insert local path to folder here/ "nameofthemodel.netlogo") \
---experiment "experiment1"
---table "path" 
+--model (insert local path to folder here/ "Industrial-Revolution-17-01-2022.netlogo") \
+--experiment "low-initial-wages-no-government" 
+--table "(insert path here)" 
+--experiment "low-initial-wages-yes-government" 
+--table "(insert path here)" 
+--experiment "high-initial-wages-no-government" 
+--table "(insert path here)" 
+--experiment "high-initial-wages-yes-government" 
+--table "(insert path here)" 
+
   
 use table command for setting the output destination, names are already in experiment. Path should use \ to separate folders  
 
