@@ -22,7 +22,6 @@
     <metric>mean [wealth] of nobles</metric>
     <metric>mean [wealth] of workers </metric>
     <metric>goods-income-value</metric>
-    <metric>service-income-metrics</metric>
     <metric>count firms</metric>
     <metric>count firms with [industry? = true] </metric>
     <metric>mean [stock] of firms </metric>
