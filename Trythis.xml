@@ -9,7 +9,7 @@
     <timeLimit steps="2"/>
     <metric>mean [price] of farms</metric>
     <metric>mean [price] of firms</metric>
-    <metric>mean [price] of bourgeoieus </metric>
+    <metric>mean [price] of bourgeoisie </metric>
     <metric>count workers with [unemployed? = false] </metric>
     <metric>count workers with [unemployed? = true] </metric>
     <metric>count workers with [state? = true] </metric>
@@ -187,4 +187,4 @@
     </enumeratedValueSet>
   </experiment>
 
-</experiments
+</experiments>
