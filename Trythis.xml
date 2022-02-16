@@ -15,7 +15,7 @@
     <metric>count workers with [state? = true] </metric>
     <metric>count workers with [firm? = true ] </metric>
     <metric>count workers with [farm? = true] </metric>
-    <metric>mean [labor-price] of workers </metric>
+    <metric>mean [salary] of workers </metric>
     <metric>mean [labor-price] of firms </metric>
     <metric>mean [labor-price] of farms </metric>
     <metric>mean [wealth] of bourgeoisie </metric>
