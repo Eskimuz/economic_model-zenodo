@@ -27,7 +27,7 @@ in installation folder run netlogo.headless
 --experiment "high-initial-wages-yes-government" 
 --table "(insert path here)" 
 
-  
+
 use table command for setting the output destination, names are already in experiment. Path should use \ to separate folders  
 
 details on table vs spreasheet command
@@ -36,6 +36,13 @@ https://ccl.northwestern.edu/netlogo/docs/behaviorspace.html#run-options-formats
 
 output should be automatic
 
+
+XML HERE
+
+https://ccl.northwestern.edu/netlogo/docs/behaviorspace.html#setting-up-experiments-in-xml
+
+I don't understand how to run it tho, the instructions are there
+  
 
 to do:
 
