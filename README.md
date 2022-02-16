@@ -55,5 +55,11 @@ look into https://pynetlogo.readthedocs.io/en/latest/install.html
 # Docker image
 The image is in docker hub with this name biocorecrg/econ:0.01
 
+# Launching the tool
+
+```
+singularity exec -e singularity/econ_0.01.sif netlogo-headless.sh  --model Industrial-Revolution-16-02-22.nlogo --experiment "trythis" --table - --setup-file Trythis.xml --threads 4
+```
+
 
 
