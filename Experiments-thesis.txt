@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE experiments SYSTEM "behaviorspace.dtd">  
 
+<experiments>
 <experiment name="low-initial-wages-no-government" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
