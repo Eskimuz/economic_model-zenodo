@@ -1094,7 +1094,8 @@ to  run-government
     set wealth (wealth + taxes)
     set taxes 0
     ;;the following split is necessary as not all agents have the bond variable
-    let possible-bond-holders turtles with [(color = blue) or (color = orange) and (shape = "person")]
+    let households turtles with [shape = "person"]
+    let possible-bond-holders households with [(color = blue) or (color = orange)]
     let bond-holders possible-bond-holders with [bonds > 0]
     let effective-interests (1 + interest-rate)
     let interest-paid ((sum [bonds] of bond-holders) * effective-interests)
