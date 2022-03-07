@@ -251,7 +251,7 @@
       <value value="15"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-household-wealth">
-      <value value="15"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-labor-price-employers">
       <value value="15"/>
@@ -617,7 +617,7 @@
       <value value="15"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-household-wealth">
-      <value value="15"/>
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-labor-price-employers">
       <value value="15"/>
