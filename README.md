@@ -16,8 +16,9 @@ Run new file Industrial-Revolution-17-01-2022, rewritten and corrected:
 -government feature can be switched off
 
 in installation folder run netlogo.headless
+use Industrial-Revolution-old.nlogo
 
---model (insert local path to folder here/ "Industrial-Revolution-17-01-2022.netlogo") \
+--model (insert local path to folder here/ "Industrial-Revolution-old.nlogo") \
 --experiment "low-initial-wages-no-government" 
 --table "(insert path here)" 
 --experiment "low-initial-wages-yes-government" 
