@@ -1684,7 +1684,7 @@ CHOOSER
 200
 initial-household-wealth
 initial-household-wealth
-2 5 10 20 30
+2 5 10 15 20 30
 1
 
 CHOOSER
