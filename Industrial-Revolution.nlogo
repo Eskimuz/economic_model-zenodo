@@ -1107,7 +1107,7 @@ to  run-government
     if wealth < 0  [
       let value abs wealth
       set bonds round ((value / 100) - 1)
-      let possible-bond-buyers turtles with [(color = blue) or (color = orange)]
+      let possible-bond-buyers households with [(color = blue) or (color = orange)]
       let bond-buyers possible-bond-buyers with [wealth > 100]
       while [(bonds > 0) and (any? bond-buyers)] [
         ask bond-buyers [
