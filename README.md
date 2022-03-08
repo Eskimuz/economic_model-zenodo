@@ -54,9 +54,29 @@ to do:
 look into https://pynetlogo.readthedocs.io/en/latest/install.html
 
 # Docker image
-The image is in docker hub with this name biocorecrg/econ:0.01
+The image is in docker hub with this name biocorecrg/econ:0.1
 
 # Launching the tool
+
+## Docker
+
+```
+docker run -v /Users/lcozzuto/aaa/test/economic_model/:/project -it biocorecrg/econ:0.01 /bin/bash
+
+netlogo-headless.sh  --model Industrial-Revolution.nlogo --experiment "high-initial-wages-yes-government"  --table high-initial-wages-yes-government.tsv --setup-file Experiments-thesis.txt 
+
+
+```
+
+
+## Singularity
+Building the image
+
+```
+singularity pull docker://biocorecrg/econ:0.1
+```
+
+Executing it:
 
 ```
 singularity exec -e singularity/econ_0.01.sif netlogo-headless.sh  --model Industrial-Revolution-16-02-22.nlogo --experiment "trythis" --table - --setup-file Trythis.xml --threads 4
