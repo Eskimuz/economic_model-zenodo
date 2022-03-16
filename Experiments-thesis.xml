@@ -181,9 +181,6 @@
     <enumeratedValueSet variable="initial-industrial-productivity">
       <value value="15"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="testing">
-      <value value="true"/>
-    </enumeratedValueSet>
   </experiment>
   <experiment name="high-initial-wages-yes-government" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
@@ -363,9 +360,6 @@
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-industrial-productivity">
       <value value="15"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="testing">
-      <value value="true"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="low-initial-wages-no-government" repetitions="1000" runMetricsEveryStep="false">
@@ -547,9 +541,6 @@
     <enumeratedValueSet variable="initial-industrial-productivity">
       <value value="15"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="testing">
-      <value value="true"/>
-    </enumeratedValueSet>
   </experiment>
   <experiment name="high-initial-wages-yes-government" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
@@ -729,9 +720,6 @@
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-industrial-productivity">
       <value value="15"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="testing">
-      <value value="true"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>
