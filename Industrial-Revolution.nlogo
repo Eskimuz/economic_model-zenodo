@@ -554,10 +554,21 @@ to run-labor-matching
   let unemp workers with [unemployed? = true]
   set unemployed count unemp
   let employed2 workers with [unemployed? = false]
-  set mean-salaries (mean [salary] of employed2)
-  set mean-salaries-firm-workers (mean [salary] of employed2 with [firm? = true])
-  set mean-salaries-farm-workers (mean [salary] of employed2 with [farm? = true])
-  if government-features = true [set mean-salaries-public-workers (mean [salary] of employed2 with [state? = true])]
+  let public-employed employed2 with [state? = true]
+  if any? employed2 [
+    set mean-salaries (mean [salary] of employed2)
+    let farm-workers employed2 with [farm? = true]
+    let firms-workers employed2 with [firm? = true]
+    if any? firms-workers [
+      set mean-salaries-firm-workers (mean [salary] of employed2 )
+    ]
+    if any? farm-workers [ 
+      set mean-salaries-farm-workers (mean [salary] of  farm-workers)
+    ]
+    if ((government-features = true) and (any? public-employed)) [
+      set mean-salaries-public-workers (mean [salary] of public-employed)
+    ]
+  ]
 end
 
 to run-production
