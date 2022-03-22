@@ -925,16 +925,6 @@ to  run-price-adjustment
     if salary < mean-food-price [set salary (mean-food-price + random-float 1)]
   ]
 
-  let employed2 workers with [unemployed? = false]
-  if any? employed2 [
-    set mean-salaries (mean [salary] of employed2)
-    set mean-salaries-firm-workers (mean [salary] of employed2 with [firm? = true])
-    set mean-salaries-farm-workers (mean [salary] of employed2 with [farm? = true])
-    if government-features = true [set mean-salaries-public-workers (mean [salary] of employed2 with [state? = true])]
-  ]
-
-
-
   ;market prices
   ask employers [
     let random-number random-float 1
