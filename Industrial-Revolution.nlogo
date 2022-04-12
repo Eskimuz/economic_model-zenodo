@@ -1535,7 +1535,7 @@ CHOOSER
 147
 initial-labor-price-workers
 initial-labor-price-workers
-7 10 15
+1 3 4 5 6 7 8 9 10 11 12 13 14 15
 2
 
 CHOOSER
@@ -1545,7 +1545,7 @@ CHOOSER
 148
 initial-labor-price-employers
 initial-labor-price-employers
-5 7 10 15
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 3
 
 CHOOSER
@@ -1555,7 +1555,7 @@ CHOOSER
 200
 initial-household-wealth
 initial-household-wealth
-2 5 10 20 30
+2 5 10 20 30 40 50
 2
 
 CHOOSER
@@ -1715,7 +1715,7 @@ CHOOSER
 462
 trans-cost
 trans-cost
-1 2500 5000 10000
+1000 1500 2000 2500 5000 10000
 1
 
 TEXTBOX
@@ -1785,7 +1785,7 @@ CHOOSER
 309
 initial-service-price
 initial-service-price
-4 5 6 7 8 10 15
+4 5 6 7 8 10 12 15 17 20
 5
 
 TEXTBOX
