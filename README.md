@@ -18,6 +18,7 @@ Run new file Industrial-Revolution-17-01-2022, rewritten and corrected:
 in installation folder run netlogo.headless
 use Industrial-Revolution-old.nlogo
 
+```
 --model (insert local path to folder here/ "Industrial-Revolution-old.nlogo") \
 --experiment "low-initial-wages-no-government" 
 --table "(insert path here)" 
@@ -27,7 +28,7 @@ use Industrial-Revolution-old.nlogo
 --table "(insert path here)" 
 --experiment "high-initial-wages-yes-government" 
 --table "(insert path here)" 
-
+```
 
 use table command for setting the output destination, names are already in experiment. Path should use \ to separate folders  
 
@@ -59,8 +60,10 @@ to do:
 
 look into https://pynetlogo.readthedocs.io/en/latest/install.html
 
-# Docker image
-The image is in docker hub with this name biocorecrg/econ:0.1
+# Docker images
+The images are in docker hub with this names:
+- biocorecrg/econ:0.1 (netlogo)
+- biocorecrg/econ_r:0.1 (R and its packages)
 
 # Launching the tool
 
