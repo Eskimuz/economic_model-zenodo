@@ -137,6 +137,7 @@ undirected-link-breed [ownership own]
 
 ;;; BREEDS VARIABLES
 workers-own [
+  previous-wealth
   wealth ;available wealth
   metabolism ;demand for food
   needs ; demand for goods
@@ -150,6 +151,7 @@ workers-own [
   ]
 
 bourgeoisie-own [
+  previous-wealth
   wealth ;available wealth
   metabolism ;demand for food
   needs ; demand for goods
@@ -163,6 +165,7 @@ bourgeoisie-own [
 ]
 
 nobles-own [
+  previous-wealth
   wealth ;available wealth
   metabolism ;demand for food
   needs ; demand for goods
@@ -276,6 +279,7 @@ to setup-workers
     set shape "person"
     setxy random-xcor random-ycor
     set wealth random-normal initial-household-wealth (initial-household-wealth / distribution)
+    set previous-wealth wealth
     set salary random-normal initial-labor-price-workers (initial-labor-price-workers / distribution)
     set kids random-normal (reproduction / 2) (reproduction / distribution)
   ]
@@ -291,6 +295,7 @@ to setup-bourgeoisie
     set price random-normal initial-service-price (initial-service-price / distribution)
     set kids random-normal (reproduction / 2) (reproduction / distribution)
     set productivity round random-normal service-productivity (service-productivity / distribution)
+    set previous-wealth (wealth / 5)
     set owner? false
   ]
   let cities patches with [pcolor = yellow]
@@ -314,6 +319,7 @@ to setup-nobles
     set shape "person"
     setxy random-xcor random-ycor
     set wealth random-normal (initial-household-wealth * nobles-ratio-wealth) (initial-household-wealth * nobles-ratio-wealth / distribution)
+    set previous-wealth (wealth / 10)
   ]
 end
 
@@ -479,6 +485,7 @@ to run-labor-matching
     set firm? false
     set farm? false
     set labor-check true
+    set previous-wealth wealth
   ]
   ;this exist to avoid problem when you have more workers than initial number
   set number-of-workers2 count workers
@@ -562,7 +569,7 @@ to run-labor-matching
     if any? firms-workers [
       set mean-salaries-firm-workers (mean [salary] of employed2 )
     ]
-    if any? farm-workers [ 
+    if any? farm-workers [
       set mean-salaries-farm-workers (mean [salary] of  farm-workers)
     ]
     if ((government-features = true) and (any? public-employed)) [
@@ -598,33 +605,54 @@ to run-demand
   set mean-service-price mean [price] of bourgeoisie
 
 ask workers [
-    let food-propensity round (( wealth / 2) / mean-farm-price )
-    let goods-propensity round ((wealth / 2) / mean-firm-price)
-    if (food-propensity > 1) and (goods-propensity > 1) [
-      set metabolism max list 1 food-propensity
-      set needs max list 1 goods-propensity
+    let income (wealth - previous-wealth)
+    let spending random-normal income (income / distribution)
+    ifelse income > 0 [
+      let food-propensity round (( spending / 2) / mean-farm-price )
+      let goods-propensity round ((spending / 2) / mean-firm-price)
+      if (food-propensity > 1) and (goods-propensity > 1) [
+        set metabolism max list 1 food-propensity
+        set needs max list 1 goods-propensity
+      ]
+    ] [
+      set metabolism 1
+      set needs 1
     ]
   ]
 
   ask bourgeoisie [
-    let food-propensity round ((wealth / 5) / mean-farm-price)
-    let goods-propensity round ((wealth / 4) / mean-firm-price)
-    let service-propensity round ((wealth / 4) / mean-firm-price)
-    if (food-propensity > 1) and (goods-propensity > 1) [
-      set metabolism max list 1 food-propensity
-      set needs max list 1 goods-propensity
-      set desires max list 1 service-propensity
+    let income (wealth - previous-wealth)
+    ifelse income > 0 [
+      let spending random-normal income (income / distribution)
+      let food-propensity round ((spending / 5) / mean-farm-price)
+      let goods-propensity round ((spending / 4) / mean-firm-price)
+      let service-propensity round ((spending / 4) / mean-firm-price)
+      if (food-propensity > 1) and (goods-propensity > 1) [
+        set metabolism max list 1 food-propensity
+        set needs max list 1 goods-propensity
+        set desires max list 1 service-propensity
+      ]
+    ][
+      set metabolism 1
+      set needs 1
     ]
   ]
 
   ask nobles [
-    let food-propensity round ((wealth / 8) / mean-farm-price)
-    let goods-propensity round ((wealth / 8 * 3 ) / mean-firm-price)
-    let service-propensity round ((wealth / 8 * 3) / mean-firm-price)
-    if (food-propensity > 1) and (goods-propensity > 1) [
-      set metabolism max list 1 food-propensity
-      set needs max list 1 goods-propensity
-      set desires max list 1 service-propensity
+    let income (wealth - previous-wealth)
+    ifelse income > 0 [
+      let spending random-normal income (income / distribution)
+      let food-propensity round ((spending / 8) / mean-farm-price)
+      let goods-propensity round ((spending / 8 * 3 ) / mean-firm-price)
+      let service-propensity round ((spending / 8 * 3) / mean-firm-price)
+      if (food-propensity > 1) and (goods-propensity > 1) [
+        set metabolism max list 1 food-propensity
+        set needs max list 1 goods-propensity
+        set desires max list 1 service-propensity
+      ]
+    ][
+      set metabolism 1
+      set needs 1
     ]
   ]
 
@@ -841,6 +869,11 @@ to run-dividends
   set aggregate-profits 0
   set failed-tick 0
 
+    let households turtles with [(color = orange) or (color = "blue") and (shape = "person") ]
+  ask households [
+    set previous-wealth wealth
+  ]
+
   ;; farms
     ask farms [
     if capital <= mean-salaries [
@@ -925,6 +958,8 @@ to  run-price-adjustment
     if salary < mean-food-price [set salary (mean-food-price + random-float 1)]
   ]
 
+
+
   ;market prices
   ask employers [
     let random-number random-float 1
@@ -952,7 +987,7 @@ to  run-price-adjustment
   ]
 
   set mean-farm-price mean [price] of farms
-  set mean-firm-price mean [price] of firms
+  if any? firms [ set mean-firm-price mean [price] of firms]
   set mean-service-price mean [price] of bourgeoisie
 
 end
@@ -997,7 +1032,6 @@ to  run-government
 end
 
 to run-substitution
-
   let possible-breeders turtles with [(color = red) or (color = orange) and (shape = "person") ]
   let breeders possible-breeders with [  (kids > reproduction)]
   ask breeders  [
