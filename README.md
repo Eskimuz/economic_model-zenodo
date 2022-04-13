@@ -88,7 +88,11 @@ singularity pull docker://biocorecrg/econ:0.1
 Executing it:
 
 ```
-singularity exec -e singularity/econ_0.01.sif netlogo-headless.sh  --model Industrial-Revolution-16-02-22.nlogo --experiment "trythis" --table - --setup-file Trythis.xml --threads 4
+singularity exec -e singularity/econ_0.01.sif ./netlogo-headless.sh \
+--model Industrial-Revolution.nlogo \
+--experiment "high-initial-wages-yes-government"  \
+--table high-initial-wages-yes-government.tsv \
+--setup-file Experiments-thesis.xml --threads 38
 ```
 
 
