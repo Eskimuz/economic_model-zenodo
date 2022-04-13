@@ -156,7 +156,7 @@
       <value value="500"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="distribution">
-      <value value="7"/>
+      <value value="4"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-labor-price-employers">
       <value value="15"/>
