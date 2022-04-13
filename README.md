@@ -38,6 +38,12 @@ https://ccl.northwestern.edu/netlogo/docs/behaviorspace.html#run-options-formats
 output should be automatic
 
 
+for testing.xml:
+
+modify values for initial-labor-price-workers - initial-labor-price-employers -> they MUST have the SAME VALUE
+[5 6 7 8 9 10 11 12 13 14 15]
+
+
 XML HERE
 
 https://ccl.northwestern.edu/netlogo/docs/behaviorspace.html#setting-up-experiments-in-xml
