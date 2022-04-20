@@ -31,6 +31,9 @@ globals [
   kids-number
   number-of-firms2
   number-of-workers2
+  initial-food-prices2
+  initial-good-prices2
+  initial-service-prices2
 
 
   ;means
@@ -63,6 +66,7 @@ globals [
   taxes
   GDP-income
   GDP-spending
+  real-GDP-spending
   goods-income-value
   labor-income-value
   land-income-value
@@ -415,11 +419,16 @@ to go
   set taxes 0
   set GDP-income 0
   set GDP-spending 0
+  set real-GDP-spending 0
   set goods-income-value 0
   set labor-income-value 0
   set land-income-value 0
   set service-income-value 0
   set profit-income-value 0
+  set initial-food-prices2 mean [price] of farms
+  set initial-good-prices2 mean [price] of firms
+  set initial-service-prices2 mean [price] of bourgeoisie
+
 ;  set inflation 0
 ;  set exports 0
 ;  set imports 0
@@ -722,6 +731,8 @@ to run-food-market
           ask low-price [
           set capital (capital + spending)
           set stock (stock - buying)
+          set real-GDP-spending (real-GDP-spending + (buying * initial-food-prices2))
+          
           ;if stock is depleted seller is removed from supply pool
           if stock = 0 [
             set supply supply with [self != myself]
@@ -786,6 +797,7 @@ end
         ask low-price [
           set capital (capital + spending)
           set stock (stock - buying)
+          set real-GDP-spending (real-GDP-spending + (buying * initial-good-prices2))
           ;if stock is depleted seller is removed from supply pool
           if stock = 0 [
               set supply supply with [self != myself]
@@ -842,6 +854,7 @@ to run-service-market
         ask low-price [
           set wealth (wealth + spending)
           set service (service - buying)
+          set real-GDP-spending (real-GDP-spending + (buying * initial-service-prices2))
           set service-market-check (service-market-check + 1)
           ;if stock is depleted seller is removed from supply pool
           if service = 0 [
@@ -1050,7 +1063,7 @@ to run-substitution
   let possible-replacement bourgeoisie with [wealth > substitute-capital]
   let existing-firms count firms
   let missing-firms (number-of-firms2 - (count firms))
-  ifelse missing-firms >= 0 [
+  if missing-firms >= 0 [
     ask up-to-n-of missing-firms possible-replacement [
       hatch-firms 1 [
         create-own-with myself
@@ -1081,10 +1094,10 @@ to run-substitution
         ]
       ]
     ]
-  ] [
+  ] 
+  if missing-firms = 0[
     let more-people round (kids-number / 10)
-    let difference (kids-number - existing-firms)
-    if difference > 0 [
+    let difference ( more-people + number-of-firms2 - existing-firms)
       ask up-to-n-of difference possible-replacement [
         hatch-firms 1 [
           create-own-with myself
@@ -1116,7 +1129,7 @@ to run-substitution
         ]
       ]
     ]
-  ]
+
 
 
   let coal-patches patches with [pcolor = black]
