@@ -60,6 +60,7 @@
     <metric>taxes </metric>
     <metric>GDP-income </metric>
     <metric>GDP-spending </metric>
+    <metric>real-GDP-spending </metric>
     <metric>goods-income-value </metric>
     <metric>labor-income-value </metric>
     <metric>land-income-value </metric>
