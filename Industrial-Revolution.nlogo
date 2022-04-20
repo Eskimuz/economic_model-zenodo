@@ -255,6 +255,9 @@ to setup
   if government-features = true [setup-government]
   if government-features = false [set tax-rate 1]
   if foreign-market-features = true [setup-foreign-market]
+  set initial-food-prices2 mean [price] of farms
+  set initial-good-prices2 mean [price] of firms
+  set initial-service-prices2 mean [price] of bourgeoisie
   reset-ticks
 end
 
@@ -425,9 +428,6 @@ to go
   set land-income-value 0
   set service-income-value 0
   set profit-income-value 0
-  set initial-food-prices2 mean [price] of farms
-  set initial-good-prices2 mean [price] of firms
-  set initial-service-prices2 mean [price] of bourgeoisie
 
 ;  set inflation 0
 ;  set exports 0
