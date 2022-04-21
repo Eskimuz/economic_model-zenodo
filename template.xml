@@ -65,7 +65,7 @@
     <metric>land-income-value </metric>
     <metric>service-income-value </metric>
     <metric>profit-income-value </metric>
-    <enumeratedValueSet variable="initial-labor-price-workers">
+    <enumeratedValueSet variable="initial-labor-price">
       <value value="15"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-capital-firms">
@@ -157,9 +157,6 @@
     </enumeratedValueSet>
     <enumeratedValueSet variable="distribution">
       <value value="4"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-labor-price-employers">
-      <value value="15"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-service-price">
       <value value="15"/>
