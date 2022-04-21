@@ -79,8 +79,8 @@ globals [
   ;initial parameters, transferred to choosers
 ;  number-of-cities
 ;  number-of-coal
-;  initial-labor-price-workers
-;  initial-labor-price-employers
+;  initial-labor-price
+;  initial-labor-price
 ;  initial-household-wealth
 ;  bourgeoisie-ratio-wealth
 ;  nobles-ratio-wealth
@@ -287,7 +287,7 @@ to setup-workers
     setxy random-xcor random-ycor
     set wealth random-normal initial-household-wealth (initial-household-wealth / distribution)
     set previous-wealth wealth
-    set salary random-normal initial-labor-price-workers (initial-labor-price-workers / distribution)
+    set salary random-normal initial-labor-price (initial-labor-price / distribution)
     set kids random-normal (reproduction / 2) (reproduction / distribution)
   ]
 end
@@ -352,7 +352,7 @@ to setup-firms
       set max-labor random-normal firm-labor (firm-labor / distribution)
       set max-industrial-labor random-normal firm-industrial-labor (firm-industrial-labor / distribution)
       set industrial-productivity random-normal initial-industrial-productivity (initial-industrial-productivity / distribution)
-      set labor-price random-normal initial-labor-price-employers (initial-labor-price-employers / distribution)
+      set labor-price random-normal initial-labor-price (initial-labor-price / distribution)
       set price ((labor-price / productivity) + random-float markup )
       let close in-radius distance-setup patches
       if any? close with [pcolor = black][set coal? true]
@@ -375,7 +375,7 @@ to setup-farms
       set failed? false
       set profits 0
       set capital random-normal initial-capital-farms (initial-capital-farms / distribution)
-      set labor-price random-normal initial-labor-price-employers (initial-labor-price-employers / distribution)
+      set labor-price random-normal initial-labor-price (initial-labor-price / distribution)
       set productivity 3
       set max-labor (round ((total-needs / total-pastures) / 3))
       set price ((labor-price / productivity) + random-float markup)
@@ -389,7 +389,7 @@ end
     set color black
     set interest-rate 0.035
     set shape "person"
-    set wage initial-labor-price-employers
+    set wage initial-labor-price
     set wealth government-initial-wealth
     set metabolism 0
     set desires 0
@@ -1118,7 +1118,7 @@ to run-substitution
           set max-labor random-normal firm-labor (firm-labor / distribution)
           set max-industrial-labor random-normal firm-industrial-labor (firm-industrial-labor / distribution)
           set industrial-productivity random-normal initial-industrial-productivity (initial-industrial-productivity / distribution)
-          set labor-price random-normal initial-labor-price-employers (initial-labor-price-employers / distribution)
+          set labor-price random-normal initial-labor-price (initial-labor-price / distribution)
           set price ((labor-price / productivity) + random-float markup )
           set new-firms (new-firms + 1)
           let close in-radius distance-setup patches
@@ -1581,8 +1581,8 @@ CHOOSER
 102
 580
 147
-initial-labor-price-workers
-initial-labor-price-workers
+initial-labor-price
+initial-labor-price-
 1 3 4 5 6 7 8 9 10 11 12 13 14 15
 2
 
@@ -1591,8 +1591,8 @@ CHOOSER
 103
 723
 148
-initial-labor-price-employers
-initial-labor-price-employers
+initial-labor-price
+initial-labor-price
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 3
 
@@ -2766,7 +2766,7 @@ NetLogo 6.2.0
     <final>export-world ( word "low-initial-wages-no-government " random-float 1.0 ".csv")</final>
     <timeLimit steps="300"/>
     <exitCondition>gdp-income &lt; 10000</exitCondition>
-    <enumeratedValueSet variable="initial-labor-price-workers">
+    <enumeratedValueSet variable="initial-labor-price">
       <value value="7"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-capital-firms">
@@ -2859,7 +2859,7 @@ NetLogo 6.2.0
     <enumeratedValueSet variable="distribution">
       <value value="7"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-labor-price-employers">
+    <enumeratedValueSet variable="initial-labor-price">
       <value value="7"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-service-price">
@@ -2893,13 +2893,13 @@ NetLogo 6.2.0
     <final>export-world ( word "high-initial-wages-yes-government" random-float 1.0 ".csv")</final>
     <timeLimit steps="300"/>
     <exitCondition>gdp-income &lt; 10000</exitCondition>
-    <enumeratedValueSet variable="initial-labor-price-workers">
+    <enumeratedValueSet variable="initial-labor-price">
       <value value="15"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-household-wealth">
       <value value="15"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-labor-price-employers">
+    <enumeratedValueSet variable="initial-labor-price">
       <value value="15"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-capital-firms">
@@ -3020,7 +3020,7 @@ NetLogo 6.2.0
     <final>export-world ( word "low-initial-wages-yes-government" random-float 10.0 ".csv"</final>
     <timeLimit steps="300"/>
     <exitCondition>gdp-income &lt; 10000</exitCondition>
-    <enumeratedValueSet variable="initial-labor-price-workers">
+    <enumeratedValueSet variable="initial-labor-price">
       <value value="7"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="government-features">
@@ -3116,7 +3116,7 @@ NetLogo 6.2.0
     <enumeratedValueSet variable="distribution">
       <value value="7"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-labor-price-employers">
+    <enumeratedValueSet variable="initial-labor-price">
       <value value="7"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-service-price">
@@ -3147,13 +3147,13 @@ NetLogo 6.2.0
     <final>export-world ( word "high-initial-wages-no-government" random-float 10.0 ".csv"</final>
     <timeLimit steps="300"/>
     <exitCondition>gdp-income &lt; 10000</exitCondition>
-    <enumeratedValueSet variable="initial-labor-price-workers">
+    <enumeratedValueSet variable="initial-labor-price">
       <value value="15"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-household-wealth">
       <value value="15"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-labor-price-employers">
+    <enumeratedValueSet variable="initial-labor-price">
       <value value="15"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="government-features">
@@ -3274,7 +3274,7 @@ NetLogo 6.2.0
     <final>export-world ( word "low-initial-wages-no-government " random-float 1.0 ".csv")</final>
     <timeLimit steps="3"/>
     <metric>mean [price] of farms</metric>
-    <enumeratedValueSet variable="initial-labor-price-workers">
+    <enumeratedValueSet variable="initial-labor-price">
       <value value="7"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-capital-firms">
@@ -3367,7 +3367,7 @@ NetLogo 6.2.0
     <enumeratedValueSet variable="distribution">
       <value value="7"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-labor-price-employers">
+    <enumeratedValueSet variable="initial-labor-price">
       <value value="7"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-service-price">
@@ -3493,7 +3493,7 @@ NetLogo 6.2.0
     <enumeratedValueSet variable="distribution">
       <value value="7"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-labor-price-employers">
+    <enumeratedValueSet variable="initial-labor-price">
       <value value="7"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-service-price">
