@@ -529,7 +529,7 @@ to run-labor-matching
   let employers turtles with [shape = "house"]
   let actually-unemployed workers with [unemployed? = true]
   let average-food-production mean [max-labor] of farms
-  let seasonality round random-normal 0 (average-food-production / distribution)
+  let seasonality round random-normal 0 (average-food-production)
   ask employers [
     set previous-capital capital
     set labor 0
@@ -538,7 +538,8 @@ to run-labor-matching
   ifelse (any? actual-employers) and (any? actually-unemployed) [
     ask actual-employers [
       let hirable round (capital / labor-price)
-      ifelse color = violet [set hirable min list (max-labor + seasonality) hirable]
+      ifelse color = violet [
+        set hirable min list (max-labor +(random seasonality)) hirable
       [set hirable min list max-labor hirable]
       let offered-wage labor-price
       let local-unemployed actually-unemployed in-radius distance-setup with [salary <= offered-wage]
