@@ -540,6 +540,7 @@ to run-labor-matching
       let hirable round (capital / labor-price)
       ifelse color = violet [
         set hirable min list (max-labor +(random seasonality)) hirable
+            ]
       [set hirable min list max-labor hirable]
       let offered-wage labor-price
       let local-unemployed actually-unemployed in-radius distance-setup with [salary <= offered-wage]
