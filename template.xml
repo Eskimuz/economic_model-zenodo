@@ -2,7 +2,7 @@
 <!DOCTYPE experiments SYSTEM "behaviorspace.dtd">  
 
 <experiments>
-<experiment name="trythis" repetitions="1" sequentialRunOrder="false" runMetricsEveryStep="true">
+<experiment name="trythis" repetitions="1000" sequentialRunOrder="false" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <final>export-world ( word "testing1" random-float 1.0 ".csv")</final>
@@ -178,9 +178,6 @@
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-industrial-productivity">
       <value value="15"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="testing">
-      <value value="true"/>
     </enumeratedValueSet>
   </experiment>
 
