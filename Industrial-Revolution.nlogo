@@ -2884,9 +2884,6 @@ NetLogo 6.2.0
     <enumeratedValueSet variable="initial-industrial-productivity">
       <value value="15"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="testing">
-      <value value="true"/>
-    </enumeratedValueSet>
   </experiment>
   <experiment name="high-initial-wages-yes-government" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
@@ -3010,9 +3007,6 @@ NetLogo 6.2.0
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-industrial-productivity">
       <value value="15"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="testing">
-      <value value="true"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="low-initial-wages-no-government" repetitions="1000" runMetricsEveryStep="false">
@@ -3138,9 +3132,6 @@ NetLogo 6.2.0
     <enumeratedValueSet variable="initial-industrial-productivity">
       <value value="15"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="testing">
-      <value value="true"/>
-    </enumeratedValueSet>
   </experiment>
   <experiment name="high-initial-wages-yes-government" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
@@ -3264,9 +3255,6 @@ NetLogo 6.2.0
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-industrial-productivity">
       <value value="15"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="testing">
-      <value value="true"/>
     </enumeratedValueSet>
   </experiment>
   <experiment name="one-time" repetitions="1" sequentialRunOrder="false" runMetricsEveryStep="true">
@@ -3392,9 +3380,6 @@ NetLogo 6.2.0
     <enumeratedValueSet variable="initial-industrial-productivity">
       <value value="15"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="testing">
-      <value value="true"/>
-    </enumeratedValueSet>
   </experiment>
   <experiment name="one-time-short" repetitions="1" sequentialRunOrder="false" runMetricsEveryStep="true">
     <setup>setup</setup>
@@ -3517,9 +3502,6 @@ NetLogo 6.2.0
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-industrial-productivity">
       <value value="15"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="testing">
-      <value value="true"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>
