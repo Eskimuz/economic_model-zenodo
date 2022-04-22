@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 ##Argument parser:
 #Create parser object
 library("argparse")
@@ -10,6 +12,7 @@ parser <- ArgumentParser()
 #Define desired outputs:
 #GLOBAL FEATURES:
 parser$add_argument("-input", "--Input_name", type="character", help="Input filenames.")
+parser$add_argument("-output", "--Output_prefix", type="character", help="Output prefix for plots")
 #parser$add_argument("-fasta", "--Fasta_file", type="character", help="Genome fasta file.")
 #parser$add_argument("-ini_pos", "--Initial_position", type="integer", default=50, help="Initial position [default %(default)].")
 #parser$add_argument("-fin_pos", "--Final_position", type="integer", help="Final position.")
@@ -17,16 +20,26 @@ parser$add_argument("-input", "--Input_name", type="character", help="Input file
 
 ######### OUTPUT ANALYSIS ##########
 
+#Get command line options, if help option encountered - print help and exit:
+args <- parser$parse_args()
+
+input_file <- args$Input_name
+
+
+output_plot1 <- paste(args$Output_prefix, "_1.pdf", sep="")
+output_plot2 <- paste(args$Output_prefix, "_2.pdf", sep="")
+output_plot3 <- paste(args$Output_prefix, "_3.pdf", sep="")
+
+
 #varname for the different variables 
 
-
 ## importing data
-rm(list = ls())
-outputs <- read_csv("high-initial-wages-yes-government.tsv", 
+#rm(list = ls())
+
+outputs <- read_csv(input_file, 
                     col_types = cols(X1 = col_number()), 
                     skip = 6,)
 
-as_tibble(outputs)
 
 # rename [step] to avoid problems with [] in R
 outputs <- outputs %>%
@@ -35,42 +48,46 @@ outputs <- outputs %>%
 
 ##### CHANGE NAME FROM <variable> to desired variable of ouput -> to have all would be nice
 
+custom_var_name
+
 ###mean of desired variable
 variable_average  <- outputs %>%
   group_by(turn) %>%
-  summarise_at(vars(`nameofvariable`), list(variable_mean = mean))
+  summarise_at(vars(custom_var_name), list(variable_mean = mean))
+
 
 ###quantiles of desired variable
 variablequantiles <- outputs %>%
   group_by(turn) %>%
-  summarize(min_variable = quantile(`nameofvariable`, probs = 0), 
-            max_variable = quantile(`nameofvariable`, probs = 1),
-            high_variable = quantile(`nameofvariable`, probs = 0.975),
-            low_variable = quantile(`nameofvariable`, probs = 0.025))
+  summarize(min_variable = quantile(custom_var_name, probs = 0), 
+            max_variable = quantile(custom_var_name, probs = 1),
+            high_variable = quantile(custom_var_name, probs = 0.975),
+            low_variable = quantile(custom_var_name, probs = 0.025))
 
 merged_for_variable <- merge(variable_average,variable_quantiles,by="turn") #merges datasets
 
 #for ribbons graph with max and min line too
 ## do this for all ouput variables, from column 42 onwards
+title_name<-paste("Average", custom_var_name, sep=" ")
 
 desired_graph <- ggplot(data = merged_for_variable, aes(x=turn)) + ##produces the plot
   geom_line(aes(y=variable_mean,color="variable")) +
   geom_line(aes(y=min_variable, color="min value of variable", linetype = "twodash")) +
   geom_line(aes(y=max_variable, color="max value of variable", linetype = "twodash")) +
   labs(x = 'Time', y = 'GDP' ) + #changes the plot to a line
-  ggtitle("Average nameofvariable") +
+  ggtitle(title_name) +
   scale_color_manual(name = "Classes", values = c("variable" = "red","min value of variable" = "orange", "min value of variable" = "orange"))+
   geom_ribbon(merged_for_variable = for_ribbons, aes(ymin = low_variable, ymax = high_variable), alpha=0.2) + ##produces area around mean,
   geom_vline(xintercept = 100) + #line for time change
   theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) ##removes all backgrounds and adds a black line
 
-desired_graph
+pdf(output_plot1)
+print(desired_graph)
+dev.off()
+
 
 ## comparison graphs, only for wealth and  prices 
-
-
-
 
 ## prices
 
@@ -122,7 +139,10 @@ prices <- ggplot(data = forprices, aes(x=turn)) + ##produces the plot
   theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 
-prices
+pdf(output_plot2)
+print(prices)
+dev.off()
+
 
 ##WEALTH
 
@@ -206,5 +226,8 @@ wealth <- ggplot(data = forincomes, aes(x=turn)) + ##produces the plot
   theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 
-wealth
+pdf(output_plot2)
+print(wealth)
+dev.off()
+
 
