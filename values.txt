@@ -1,0 +1,1 @@
+initial-labor-price	5	15	5

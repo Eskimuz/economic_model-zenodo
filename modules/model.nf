@@ -1,34 +1,22 @@
 process runModel {
-    container biocorecrg/econ:0.1
-    tag { id }
-
+    container 'biocorecrg/econ:0.01'
+    
+    tag { "${experiment} on ${id}" }
+    label 'big_cpus'
+    
     input:
-    tuple val(id), path(peak)
-
+    tuple val(id), val(par_name), val(par_value), path(setup), val(experiment)
+    path(nlogo)
+    
     output:
-    tuple val("${id}_epic"), path("${id}_epic_6.bed")
+    tuple val("${id}"), path("${id}_${experiment}.txt")
     
 	script:
     """
-    grep -v "#" ${peak} | awk '{OFS="\t"; num++; score=int(\$5); if (score>1000) {score = 1000}; print \$1,\$2,\$3,"peak_"num, score, \$6}' > ${id}_epic_6.bed
+	netlogo-headless.sh  --model ${nlogo} \
+	--experiment "${experiment}" --table ${id}_${experiment}.txt \
+	--setup-file ${setup} --threads ${task.cpus}
     """
 }
 
-process makeGraph {
-    container biocorecrg/econ_r:0.1
-
-    tag { id }
-    
-    input:
-    val(ext)
-    tuple val(id), path(peak)
-
-    output:
-    tuple val("${id}_${ext}"), path("${id}_${ext}_6.bed")
-    
-	script:
-    """
-    awk -F"\t" '{OFS="\t"; print \$1,\$2,\$3,\$4,\$5,\$6}' ${peak} | awk '{OFS="\t"; score=int(\$5); if (score>1000) {score = 1000}; print \$1,\$2,\$3,\$4, score, \$6}' > ${id}_${ext}_6.bed
-    """
-}
 

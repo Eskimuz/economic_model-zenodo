@@ -25,7 +25,7 @@ log.info """
 ║╣ ║  ║ ║║║║
 ╚═╝╚═╝╚═╝╝╚╝                                                                                       
 ====================================================
-reads                       : ${params.reads}
+values                      : ${params.values}
 output (output folder)      : ${params.output}
 """
 
@@ -38,75 +38,61 @@ if (params.help) {
 if (params.resume) exit 1, "Are you making the classical --resume typo? Be careful!!!! ;)"
 
 
+nlogo = file("${projectDir}/Industrial-Revolution.nlogo")
+xmlfile = file("${projectDir}/template.xml")
+
+if( !nlogo.exists() ) exit 1, "Missing Industrial-Revolution.nlogo file!"
+if( !xmlfile.exists() ) exit 1, "Missing template.xml file!"
 
 // Setting the reference genome file and the annotation file (validation)
-peakconfig = file(params.peakconfig)
-if( !peakconfig.exists() ) exit 1, "Missing peak calling config: '$peakconfig'. Specify path with --peakconfig"
-
+values = file(params.values)
+if( !values.exists() ) exit 1, "Missing values file: '${params.values}'. Specify the path with --values parameter"
 
 
 outputfolder    	= "${params.output}"
 
 
-
-// Create channels for sequences data
+// Create a channel for values 
 Channel
-    .fromFilePairs( params.reads, size: ( params.read_type == "SE") ? 1 : 2 )
-    .ifEmpty { error "Cannot find any reads matching: ${params.reads}" }
-    .set { read_files}    
-
-//read_files.view()
-
-Channel
-    .fromPath( params.reads )                                             
-    .set { fastq_files}
-
-// Create a channel for peak calling
-Channel
-    .from(peakconfig.readLines())
+    .from(values.readLines())
     .map { line ->
         list = line.split("\t")
             if (list.length <2) {
 			  error "ERROR!!! Peak config file has to be tab separated\n" 
 	        }        
 	        if (list[0]!= "") {
-	        	category = ""
-	        	if (list.length == 3) {
-					category = list[2]
-				} 
-				chip_sample_id = list[0]
-				ctrl_sample_id = list[1]
-			[ "${chip_sample_id}-${ctrl_sample_id}", chip_sample_id, ctrl_sample_id, category ]
+	        	param_name = list[0]
+				initial_val = list[1]
+				final_val = list[2]
+				step_val = list[3]
+			[ param_name, initial_val, final_val, step_val ]
         }  
-    }
-    .set{ peakcall_params}
+    }.set{ pipe_params}
 
-// Create a channel for peak calling
-def progPars = [:]
-allLines  = pars_tools.readLines()
-for( line : allLines ) {
-    list = line.split("\t")
-    if (list.length <2) {
-		 error "ERROR!!! Config file has to be tab separated\n" 
+
+include { runModel } from "${baseDir}/modules/model.nf"
+include { xmlMod } from "${baseDir}/modules/xmlmod.nf"
+
+Experiments = Channel.of( "testing1" )
+
+pipe_params.map {
+	def int start = it[1].toInteger()
+	def int fin = it[2].toInteger()
+	def int step = it[3].toInteger()
+	def ranges = []
+	for (i = fin; i > start; i-=step) {
+		ranges.push(i)
 	}
-    if (!(list[0] =~ /#/ )) {
-		progPars[list[0]] = ["chip": list[1].replace("\"", ""), "rip": list[2].replace("\"", "")]
-    }  
-}
- 
-include { convertEpicTo6Bed; convertTo6Bed as convertMACSTo6Bed; convertTo6Bed as convertMOAIMSTo6Bed; convertTo6Bed as convertExomeTo6Bed} from "${baseDir}/local_modules"
-
-
-
-
-
-
-
+	ranges.push(start)
+	[it[0], ranges]
+	
+}.transpose().set{reshaped_pars}
 
 
 workflow {
-	FASTQC(fastq_files)
-
+   xml_files = xmlMod (reshaped_pars, xmlfile)
+   xml_files.combine(Experiments).set{data_for_model}
+   runModel(data_for_model, nlogo)
 }
 
 workflow.onComplete {
