@@ -79,8 +79,8 @@ globals [
   ;initial parameters, transferred to choosers
 ;  number-of-cities
 ;  number-of-coal
-  initial-labor-price-workers
-  initial-labor-price-employers
+;  initial-labor-price-workers
+;  initial-labor-price-employers
 ;  initial-household-wealth
 ;  bourgeoisie-ratio-wealth
 ;  nobles-ratio-wealth
