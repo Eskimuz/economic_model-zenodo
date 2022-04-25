@@ -1067,6 +1067,8 @@ to run-substitution
   let mean-labor-price mean [labor-price] of firms
   let possible-replacement bourgeoisie with [wealth > substitute-capital]
   let existing-firms count firms
+  let mean-productivity mean [productivity] of firms
+  let mean-industrial-productivity mean [industrial-productivity] of firms
   let missing-firms (number-of-firms2 - (count firms))
   if missing-firms >= 0 [
     ask up-to-n-of missing-firms possible-replacement [
@@ -1084,10 +1086,10 @@ to run-substitution
         set failed? false
         set profits 0
         set capital random-normal initial-capital-firms (initial-capital-firms / distribution)
-        set productivity random-normal firm-productivity (firm-productivity / distribution)
+        set productivity random-normal mean-productivity (mean-productivity / distribution)
         set max-labor random-normal firm-labor (firm-labor / distribution)
         set max-industrial-labor random-normal firm-industrial-labor (firm-industrial-labor / distribution)
-        set industrial-productivity random-normal initial-industrial-productivity (initial-industrial-productivity / distribution)
+        set industrial-productivity random-normal mean-industrial-productivity (mean-industrial-productivity / distribution)
         set labor-price random-normal  mean-labor-price ( mean-labor-price / distribution)
         set price ((labor-price / productivity) + random-float markup )
         set new-firms (new-firms + 1)
@@ -1105,31 +1107,31 @@ to run-substitution
     let difference ( more-people + number-of-firms2 - existing-firms)
       ask up-to-n-of difference possible-replacement [
         hatch-firms 1 [
-          create-own-with myself
-          set shape "house"
-          set color orange
-          set size 0.1
-          right random 360
-          forward random-float 0.5
-          set capital substitute-capital
-          set coal? false
-          set industrywannabe? false
-          set industry? false
-          set failed? false
-          set profits 0
-          set capital random-normal initial-capital-firms (initial-capital-firms / distribution)
-          set productivity random-normal firm-productivity (firm-productivity / distribution)
-          set max-labor random-normal firm-labor (firm-labor / distribution)
-          set max-industrial-labor random-normal firm-industrial-labor (firm-industrial-labor / distribution)
-          set industrial-productivity random-normal initial-industrial-productivity (initial-industrial-productivity / distribution)
-          set labor-price random-normal initial-labor-price-employers (initial-labor-price-employers / distribution)
-          set price ((labor-price / productivity) + random-float markup )
-          set new-firms (new-firms + 1)
-          let close in-radius distance-setup patches
-          if any? close with [pcolor = black][set coal? true]
-          ask myself [
-            set wealth (wealth - substitute-capital)
-            set owner? true
+create-own-with myself
+        set shape "house"
+        set color orange
+        set size 0.1
+        right random 360
+        forward random-float 0.5
+        set capital substitute-capital
+        set coal? false
+        set industrywannabe? false
+        set industry? false
+        set failed? false
+        set profits 0
+        set capital random-normal initial-capital-firms (initial-capital-firms / distribution)
+        set productivity random-normal mean-productivity (mean-productivity / distribution)
+        set max-labor random-normal firm-labor (firm-labor / distribution)
+        set max-industrial-labor random-normal firm-industrial-labor (firm-industrial-labor / distribution)
+        set industrial-productivity random-normal mean-industrial-productivity (mean-industrial-productivity / distribution)
+        set labor-price random-normal  mean-labor-price ( mean-labor-price / distribution)
+        set price ((labor-price / productivity) + random-float markup )
+        set new-firms (new-firms + 1)
+        let close in-radius distance-setup patches
+        if any? close with [pcolor = black][set coal? true]
+        ask myself [
+          set wealth (wealth - substitute-capital)
+          set owner? true
           ]
         ]
       ]
