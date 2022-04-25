@@ -287,8 +287,7 @@ to setup-workers
     setxy random-xcor random-ycor
     set wealth random-normal initial-household-wealth (initial-household-wealth / distribution)
     set previous-wealth wealth
-    set initial-labor-price-workers initial-labor-price
-    set salary random-normal initial-labor-price-workers (initial-labor-price-workers / distribution)
+    set salary random-normal initial-labor-price (initial-labor-price / distribution)
     set kids random-normal (reproduction / 2) (reproduction / distribution)
   ]
 end
@@ -353,8 +352,7 @@ to setup-firms
       set max-labor random-normal firm-labor (firm-labor / distribution)
       set max-industrial-labor random-normal firm-industrial-labor (firm-industrial-labor / distribution)
       set industrial-productivity random-normal initial-industrial-productivity (initial-industrial-productivity / distribution)
-      set initial-labor-price-workers-employers initial-labor-price
-      set labor-price random-normal initial-labor-price-employers (initial-labor-price-employers / distribution)
+      set labor-price random-normal initial-labor-price (initial-labor-price / distribution)
       set price ((labor-price / productivity) + random-float markup )
       let close in-radius distance-setup patches
       if any? close with [pcolor = black][set coal? true]
@@ -377,7 +375,7 @@ to setup-farms
       set failed? false
       set profits 0
       set capital random-normal initial-capital-farms (initial-capital-farms / distribution)
-      set labor-price random-normal initial-labor-price-employers (initial-labor-price-employers / distribution)
+      set labor-price random-normal initial-labor-price (initial-labor-price / distribution)
       set productivity 3
       set max-labor (round ((total-needs / total-pastures) / 3))
       set price ((labor-price / productivity) + random-float markup)
@@ -391,7 +389,7 @@ end
     set color black
     set interest-rate 0.035
     set shape "person"
-    set wage initial-labor-price-employers
+    set wage initial-labor-price
     set wealth government-initial-wealth
     set metabolism 0
     set desires 0
