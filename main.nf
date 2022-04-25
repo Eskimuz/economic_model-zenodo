@@ -25,6 +25,7 @@ log.info """
 ║╣ ║  ║ ║║║║
 ╚═╝╚═╝╚═╝╝╚╝                                                                                       
 ====================================================
+batches                     : ${params.batches}
 values                      : ${params.values}
 output (output folder)      : ${params.output}
 """
@@ -88,10 +89,14 @@ pipe_params.map {
 	
 }.transpose().set{reshaped_pars}
 
+n_batches = Channel.from( 1..params.batches )
+
 
 workflow {
    xml_files = xmlMod (reshaped_pars, xmlfile)
-   xml_files.combine(Experiments).set{data_for_model}
+   xml_files.combine(Experiments).combine(n_batches).map{
+   		["${it[0]}__${it[5]}", it[1], it[2], it[3], it[4]]
+   }.set{data_for_model}
    runModel(data_for_model, nlogo)
 }
 

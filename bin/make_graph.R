@@ -45,47 +45,9 @@ outputs <- read_csv(input_file,
 outputs <- outputs %>%
   rename(turn = 41,ID = 1)
 
+outputs
 
-##### CHANGE NAME FROM <variable> to desired variable of ouput -> to have all would be nice
-
-custom_var_name
-
-###mean of desired variable
-variable_average  <- outputs %>%
-  group_by(turn) %>%
-  summarise_at(vars(custom_var_name), list(variable_mean = mean))
-
-
-###quantiles of desired variable
-variablequantiles <- outputs %>%
-  group_by(turn) %>%
-  summarize(min_variable = quantile(custom_var_name, probs = 0), 
-            max_variable = quantile(custom_var_name, probs = 1),
-            high_variable = quantile(custom_var_name, probs = 0.975),
-            low_variable = quantile(custom_var_name, probs = 0.025))
-
-merged_for_variable <- merge(variable_average,variable_quantiles,by="turn") #merges datasets
-
-#for ribbons graph with max and min line too
-## do this for all ouput variables, from column 42 onwards
-title_name<-paste("Average", custom_var_name, sep=" ")
-
-desired_graph <- ggplot(data = merged_for_variable, aes(x=turn)) + ##produces the plot
-  geom_line(aes(y=variable_mean,color="variable")) +
-  geom_line(aes(y=min_variable, color="min value of variable", linetype = "twodash")) +
-  geom_line(aes(y=max_variable, color="max value of variable", linetype = "twodash")) +
-  labs(x = 'Time', y = 'GDP' ) + #changes the plot to a line
-  ggtitle(title_name) +
-  scale_color_manual(name = "Classes", values = c("variable" = "red","min value of variable" = "orange", "min value of variable" = "orange"))+
-  geom_ribbon(merged_for_variable = for_ribbons, aes(ymin = low_variable, ymax = high_variable), alpha=0.2) + ##produces area around mean,
-  geom_vline(xintercept = 100) + #line for time change
-  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
-                     panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) ##removes all backgrounds and adds a black line
-
-pdf(output_plot1)
-print(desired_graph)
-dev.off()
-
+exit
 
 ## comparison graphs, only for wealth and  prices 
 
