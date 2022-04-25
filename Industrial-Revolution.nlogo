@@ -79,8 +79,8 @@ globals [
   ;initial parameters, transferred to choosers
 ;  number-of-cities
 ;  number-of-coal
-;  initial-labor-price-workers
-;  initial-labor-price-employers
+  initial-labor-price-workers
+  initial-labor-price-employers
 ;  initial-household-wealth
 ;  bourgeoisie-ratio-wealth
 ;  nobles-ratio-wealth
@@ -287,6 +287,7 @@ to setup-workers
     setxy random-xcor random-ycor
     set wealth random-normal initial-household-wealth (initial-household-wealth / distribution)
     set previous-wealth wealth
+    set initial-labor-price-workers initial-labor-price
     set salary random-normal initial-labor-price-workers (initial-labor-price-workers / distribution)
     set kids random-normal (reproduction / 2) (reproduction / distribution)
   ]
@@ -352,6 +353,7 @@ to setup-firms
       set max-labor random-normal firm-labor (firm-labor / distribution)
       set max-industrial-labor random-normal firm-industrial-labor (firm-industrial-labor / distribution)
       set industrial-productivity random-normal initial-industrial-productivity (initial-industrial-productivity / distribution)
+      set initial-labor-price-workers-employers initial-labor-price
       set labor-price random-normal initial-labor-price-employers (initial-labor-price-employers / distribution)
       set price ((labor-price / productivity) + random-float markup )
       let close in-radius distance-setup patches
