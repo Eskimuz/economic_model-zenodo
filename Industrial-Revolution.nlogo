@@ -1589,8 +1589,19 @@ CHOOSER
 147
 initial-labor-price-workers
 initial-labor-price-workers
-7 10 15
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 0
+
+CHOOSER
+437
+102
+580
+147
+initial-labor-price
+initial-labor-price
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+0
+
 
 CHOOSER
 585
@@ -1599,7 +1610,7 @@ CHOOSER
 148
 initial-labor-price-employers
 initial-labor-price-employers
-5 7 10 15
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 1
 
 CHOOSER
