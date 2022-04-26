@@ -73,6 +73,7 @@ Channel
 
 include { runModel } from "${baseDir}/modules/model.nf"
 include { xmlMod } from "${baseDir}/modules/xmlmod.nf"
+include { joinFiles } from "${baseDir}/modules/joinfiles.nf"
 
 Experiments = Channel.of( "testing1" )
 
@@ -97,7 +98,14 @@ workflow {
    xml_files.combine(Experiments).combine(n_batches).map{
    		["${it[0]}__${it[5]}", it[1], it[2], it[3], it[4]]
    }.set{data_for_model}
-   runModel(data_for_model, nlogo)
+   res_model = runModel(data_for_model, nlogo)
+   res_model.map{
+   		def ids = it[0].split("__")
+   		[ids[0], it[1]]
+   }.groupTuple().set{files_pieces}
+   
+   joinFiles(files_pieces)
+//   res_model.groupTuple().view()
 }
 
 workflow.onComplete {

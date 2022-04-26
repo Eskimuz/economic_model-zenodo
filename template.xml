@@ -2,69 +2,69 @@
 <!DOCTYPE experiments SYSTEM "behaviorspace.dtd">  
 
 <experiments>
-<experiment name="testing1" repetitions="1" sequentialRunOrder="false" runMetricsEveryStep="true">
+<experiment name="testing1" repetitions="10" sequentialRunOrder="false" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <final>export-world ( word "testing1" random-float 1.0 ".csv")</final>
-    <timeLimit steps="300"/>
+    <timeLimit steps="1"/>
     <metric>mean [price] of farms</metric>
     <metric>mean [price] of firms</metric>
-    <metric>mean [price] of bourgeoisie </metric>
-    <metric>count workers with [unemployed? = false] </metric>
-    <metric>count workers with [unemployed? = true] </metric>
-    <metric>count workers with [state? = true] </metric>
-    <metric>count workers with [firm? = true ] </metric>
-    <metric>count workers with [farm? = true] </metric>
-    <metric>mean [salary] of workers </metric>
-    <metric>mean [labor-price] of firms </metric>
-    <metric>mean [labor-price] of farms </metric>
-    <metric>mean [wealth] of bourgeoisie </metric>
+    <metric>mean [price] of bourgeoisie</metric>
+    <metric>count workers with [unemployed? = false]</metric>
+    <metric>count workers with [unemployed? = true]</metric>
+    <metric>count workers with [state? = true]</metric>
+    <metric>count workers with [firm? = true ]</metric>
+    <metric>count workers with [farm? = true]</metric>
+    <metric>mean [salary] of workers</metric>
+    <metric>mean [labor-price] of firms</metric>
+    <metric>mean [labor-price] of farms</metric>
+    <metric>mean [wealth] of bourgeoisie</metric>
     <metric>mean [wealth] of nobles</metric>
-    <metric>mean [wealth] of workers </metric>
+    <metric>mean [wealth] of workers</metric>
     <metric>goods-income-value</metric>
     <metric>service-income-value</metric>
     <metric>count firms</metric>
-    <metric>count firms with [industry? = true] </metric>
-    <metric>mean [stock] of firms </metric>
-    <metric>mean [stock] of farms </metric>
-    <metric>count firms with [stock = 0] </metric>
-    <metric>aggregate-farm-production </metric>
-    <metric>aggregate-industry-production </metric>
-    <metric>aggregate-services </metric>
-    <metric>aggregate-metabolism </metric>
-    <metric>aggregate-goods-demand </metric>
-    <metric>aggregate-services-demand </metric>
-    <metric>aggregate-profits </metric>
-    <metric>aggregate-dividends </metric>
-    <metric>average-capital-firms </metric>
-    <metric>average-capital-farms </metric>
-    <metric>average-profits-firms </metric>
-    <metric>average-profits-farms </metric>
-    <metric>mean-profits-farms </metric>
-    <metric>mean-profit-firms </metric>
-    <metric>yearly-interest </metric>
-    <metric>industrialized-firms </metric>
-    <metric>failed-firms </metric>
-    <metric>new-firms </metric>
-    <metric>local-number </metric>
-    <metric>unemployed </metric>
-    <metric>employed </metric>
-    <metric>bonds-sold </metric>
-    <metric>kids-number </metric>
+    <metric>count firms with [industry? = true]</metric>
+    <metric>mean [stock] of firms</metric>
+    <metric>mean [stock] of farms</metric>
+    <metric>count firms with [stock = 0]</metric>
+    <metric>aggregate-farm-production</metric>
+    <metric>aggregate-industry-production</metric>
+    <metric>aggregate-services</metric>
+    <metric>aggregate-metabolism</metric>
+    <metric>aggregate-goods-demand</metric>
+    <metric>aggregate-services-demand</metric>
+    <metric>aggregate-profits</metric>
+    <metric>aggregate-dividends</metric>
+    <metric>average-capital-firms</metric>
+    <metric>average-capital-farms</metric>
+    <metric>average-profits-firms</metric>
+    <metric>average-profits-farms</metric>
+    <metric>mean-profits-farms</metric>
+    <metric>mean-profit-firms</metric>
+    <metric>yearly-interest</metric>
+    <metric>industrialized-firms</metric>
+    <metric>failed-firms</metric>
+    <metric>new-firms</metric>
+    <metric>local-number</metric>
+    <metric>unemployed</metric>
+    <metric>employed</metric>
+    <metric>bonds-sold</metric>
+    <metric>kids-number</metric>
     <metric>mean-firm-price</metric>
-    <metric>mean-farm-price </metric>
-    <metric>mean-salaries </metric>
-    <metric>mean-salaries-firm-workers </metric>
-    <metric>mean-salaries-farm-workers </metric>
-    <metric>mean-salaries-public-workers </metric>
-    <metric>taxes </metric>
-    <metric>GDP-income </metric>
-    <metric>GDP-spending </metric>
-    <metric>goods-income-value </metric>
-    <metric>labor-income-value </metric>
-    <metric>land-income-value </metric>
-    <metric>service-income-value </metric>
-    <metric>profit-income-value </metric>
+    <metric>mean-farm-price</metric>
+    <metric>mean-salaries</metric>
+    <metric>mean-salaries-firm-workers</metric>
+    <metric>mean-salaries-farm-workers</metric>
+    <metric>mean-salaries-public-workers</metric>
+    <metric>taxes</metric>
+    <metric>GDP-income</metric>
+    <metric>GDP-spending</metric>
+    <metric>goods-income-value</metric>
+    <metric>labor-income-value</metric>
+    <metric>land-income-value</metric>
+    <metric>service-income-value</metric>
+    <metric>profit-income-value</metric>
     <enumeratedValueSet variable="initial-labor-price">
       <value value="15"/>
     </enumeratedValueSet>

@@ -1,6 +1,7 @@
 process runModel {
     container 'biocorecrg/econ:0.01'
-    
+   
+ 
     tag { "${experiment} on ${id}" }
     label 'big_cpus'
     
