@@ -42,66 +42,80 @@ outputs <- read_csv(input_file,
 
 
 # rename [step] to avoid problems with [] in R
-outputs <- outputs %>%
-  rename(turn = 41,ID = 1)
+#outputs <- outputs %>%
+#  rename(turn = 41,ID = 1)
 
-outputs
+#outputs
 
-exit
+#exit
 
 ## comparison graphs, only for wealth and  prices 
 
 ## prices
 
 bourgeoisiesprice <- outputs %>%
-  group_by(turn) %>%
+  group_by(step) %>%
   summarise_at(vars(`mean [price] of bourgeoisie`),list(bourgeoisieprices = mean))
 
 bourgeoisiespricessshades <- outputs %>%
-  group_by(turn) %>%
+  group_by(step) %>%
   summarize(highbourgpr = quantile(`mean [price] of bourgeoisie`, probs = 0.975),
             lowbourgpr = quantile(`mean [price] of bourgeoisie`, probs = 0.025))
-bourgeoisiesprice <- merge(bourgeoisiesprice,bourgeoisiespricessshades, by = "turn")
+bourgeoisiesprice <- merge(bourgeoisiesprice,bourgeoisiespricessshades, by = "step")
 
 firmsprice <- outputs %>%
-  group_by(turn) %>%
+  group_by(step) %>%
   summarise_at(vars(`mean [price] of firms`),list(firmsprices = mean))
 
 firmspricesshades <- outputs %>%
-  group_by(turn) %>%
-  summarize(highfirmpr = quantile(`mean [price] of firms`, probs = 0.975),
-            lowfirmpr = quantile(`mean [price] of firms`, probs = 0.025))
-firmsprice <- merge(firmsprice,firmspricesshades, by = "turn")
+  group_by(step) %>%
+  summarize(highfirmpr = quantile(`mean-firms-price`, probs = 0.975),
+            lowfirmpr = quantile(`mean-firm-price`, probs = 0.025))
+firmsprice <- merge(firmsprice,firmspricesshades, by = "step")
 
 
 farmsprice <- outputs %>%
-  group_by(turn) %>%
-  summarise_at(vars(`mean [price] of farms`),list(farmsprices = mean))
+  group_by(step) %>%
+  summarise_at(vars(`mean-farm-price`),list(farmsprices = mean))
 
 farmspricesshades <- outputs %>%
-  group_by(turn) %>%
-  summarize(highfarmpr = quantile(`mean [price] of farms`, probs = 0.975),
-            lowfarmpr = quantile(`mean [price] of farms`, probs = 0.025))
-farmsprice <- merge(farmsprice,farmspricesshades, by = "turn")
+  group_by(step) %>%
+  summarize(highfarmpr = quantile(`mean-farm-price`, probs = 0.975),
+            lowfarmpr = quantile(`mean-farm-price`, probs = 0.025))
+farmsprice <- merge(farmsprice,farmspricesshades, by = "step")
 
-forprices <- merge(bourgeoisiesprice,firmsprice,by="turn")
-forprices <- merge(forprices,farmsprice,by="turn")
+salaries <- outputs %>%
+  group_by(step) %>%
+  summarise_at(vars(`mean-salaries`),list(meansalaries=mean))
+salarieshades <- outputs %>%
+  group_by(step) %>%
+  summarise(highsalary = quantile(`mean-salaries`, probs = 0.975),
+            lowsalary = quantile(`mean-salaries`, probs = 0.025))
+salaries <- merge(salaries,salarieshades,by="step")
 
-prices <- ggplot(data = forprices, aes(x=turn)) + ##produces the plot
+forprices <- merge(bourgeoisiesprice,firmsprice,by="step")
+forprices <- merge(forprices,farmsprice,by="step")
+forprices <- merge(forprices,salaries,by="step")
+
+prices <- ggplot(data = forprices, aes(x=step)) + ##produces the plot
   geom_line(aes(y=bourgeoisieprices,color="Bourgeoisie")) +
   geom_line(aes(y=firmsprices, color="Firms")) +
   geom_line(aes(y=farmsprices, color="Farms")) +
-  geom_ribbon(data = forprices,aes(x=turn,y=firmsprices,ymin = lowfirmpr, ymax = highfirmpr), alpha=0.1) +
-  geom_ribbon(data = forprices,aes(x=turn,y=bourgeoisieprices,ymin = lowbourgpr, ymax = highbourgpr), alpha=0.1) +
-  geom_ribbon(data = forprices,aes(x=turn,y=farmsprices,ymin = lowfarmpr, ymax = highfarmpr), alpha=0.1) +
+  geom_line(aes(y=meansalaries, color="Salaries")) + 
+  geom_ribbon(data = forprices,aes(x=step,y=firmsprices,ymin = lowfirmpr, ymax = highfirmpr), alpha=0.1) +
+  geom_ribbon(data = forprices,aes(x=step,y=bourgeoisieprices,ymin = lowbourgpr, ymax = highbourgpr), alpha=0.1) +
+  geom_ribbon(data = forprices,aes(x=step,y=farmsprices,ymin = lowfarmpr, ymax = highfarmpr), alpha=0.1) +
+  geom_ribbon(data = forprices,aes(x=step,y=meansalaries,ymin=lowsalary,ymax=highsalary), alpha=0.1) +
   labs(x = 'Time', y = 'Value' ) + #changes the plot to a line
   ggtitle('Prices averages') +
-  scale_color_manual(name = "Classes", values = c("Bourgeoisie" = "orange", "Firms" = "yellow", "farms" = "green"))+
+  scale_color_manual(name = "Classes", values = c("Bourgeoisie" = "orange", "Firms" = "yellow", "Farms" = "green","Salaries"="blue"))+
   geom_vline(xintercept = 100) + #line for time change
   theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 
-pdf(output_plot2)
+prices
+
+pdf(output_plot1)
 print(prices)
 dev.off()
 
@@ -109,78 +123,78 @@ dev.off()
 ##WEALTH
 
 bourgeoisiesincomes <- outputs %>%
-  group_by(turn) %>%
+  group_by(step) %>%
   summarise_at(vars(`mean [wealth] of bourgeoisie`),list(bourgeoisiewealth = mean))
 
 bourgeoisiesincomesshades <- outputs %>%
-  group_by(turn) %>%
+  group_by(step) %>%
   summarize(highbourg = quantile(`mean [wealth] of bourgeoisie`, probs = 0.975),
             lowbourg = quantile(`mean [wealth] of bourgeoisie`, probs = 0.025))
 
-bourgeoisiesincomes <- merge(bourgeoisiesincomes,bourgeoisiesincomesshades, by = "turn")
+bourgeoisiesincomes <- merge(bourgeoisiesincomes,bourgeoisiesincomesshades, by = "step")
 
 workersincomes <- outputs %>%
-  group_by(turn) %>%
+  group_by(step) %>%
   summarise_at(vars(`mean [wealth] of workers`), list(workerswealth = mean))
 workersincomesshades <- outputs %>%
-  group_by(turn) %>%
+  group_by(step) %>%
   summarize(highwork = quantile(`mean [wealth] of workers`, probs = 0.975),
             lowwork = quantile(`mean [wealth] of workers`, probs = 0.025))
-workersincomes <- merge(workersincomes,workersincomesshades, by = "turn")
+workersincomes <- merge(workersincomes,workersincomesshades, by = "step")
 
 noblesincomes <- outputs %>%
-  group_by(turn) %>%
+  group_by(step) %>%
   summarise_at(vars(`mean [wealth] of nobles`),list(nobleswealth = mean))
 noblesincomeshades <- outputs %>%
-  group_by(turn) %>%
+  group_by(step) %>%
   summarize(highnobles = quantile(`mean [wealth] of nobles`, probs = 0.975),
             lownobles = quantile(`mean [wealth] of nobles`, probs = 0.025))
 
-noblesincomes <- merge(noblesincomes,noblesincomeshades,by="turn")
+noblesincomes <- merge(noblesincomes,noblesincomeshades,by="step")
 
 farmscapital <- outputs %>%
-  group_by(turn) %>%
+  group_by(step) %>%
   summarise_at(vars(`average-capital-farms`),list(farmscapital = mean))
 
 farmsshades <- outputs %>%
-  group_by(turn) %>%
+  group_by(step) %>%
   summarize(highfarms = quantile(`average-capital-farms`, probs = 0.975),
             lowfarms = quantile(`average-capital-farms`, probs = 0.025))
 
-farmscap <- merge(farmscapital,farmsshades,by="turn")
+farmscap <- merge(farmscapital,farmsshades,by="step")
 
 
 firmscapital <- outputs %>%
-  group_by(turn) %>%
+  group_by(step) %>%
   summarise_at(vars(`average-capital-firms`),list(firmscapital = mean))
 
 firmsshades <- outputs %>%
-  group_by(turn) %>%
+  group_by(step) %>%
   summarize(highfirms = quantile(`average-capital-firms`, probs = 0.975),
             lowfirms = quantile(`average-capital-firms`, probs = 0.025))
 
-firmscap <- merge(firmscapital,firmsshades,by="turn")
+firmscap <- merge(firmscapital,firmsshades,by="step")
 
-forcapital <- merge(firmscap,farmscap,by="turn")
+forcapital <- merge(firmscap,farmscap,by="step")
 
-forincomes <- merge(bourgeoisiesincomes,workersincomes,by="turn")
-forincomes <- merge(forincomes,noblesincomes,by="turn")
-forincomes <- merge(forincomes,forcapital,by="turn")
+forincomes <- merge(bourgeoisiesincomes,workersincomes,by="step")
+forincomes <- merge(forincomes,noblesincomes,by="step")
+forincomes <- merge(forincomes,forcapital,by="step")
 
 names<-c('bourgeoisies','workers','nobles','farms','firms')
 
 
-wealth <- ggplot(data = forincomes, aes(x=turn)) + ##produces the plot
+wealth <- ggplot(data = forincomes, aes(x=step)) + ##produces the plot
   geom_line(aes(y=bourgeoisiewealth,color='Bourgeoisies')) +
   geom_line(aes(y=workerswealth,color='Workers')) +
   geom_line(aes(y=nobleswealth,color='Nobles')) +
   geom_line(aes(y=farmscapital,color='Farms')) +
   geom_line(aes(y=firmscapital,color='Firms')) +
-  geom_ribbon(data = forincomes,aes(x=turn,y=bourgeoisiewealth,ymin = lowbourg, ymax = highbourg), alpha=0.1) +
-  geom_ribbon(data = forincomes,aes(x=turn,y=nobleswealth,ymin = lownobles, ymax = highnobles), alpha=0.1) +
-  geom_ribbon(data = forincomes,aes(x=turn,y=workerswealth,ymin = lowwork, ymax = highwork), alpha=0.1) +
-  geom_ribbon(data = forincomes,aes(x=turn,y=farmscapital,ymin = lowfarms, ymax = highfarms), alpha=0.1) +
-  geom_ribbon(data = forincomes,aes(x=turn,y=firmscapital,ymin = lowfirms, ymax = highfirms), alpha=0.1) +
+  geom_ribbon(data = forincomes,aes(x=step,y=bourgeoisiewealth,ymin = lowbourg, ymax = highbourg), alpha=0.1) +
+  geom_ribbon(data = forincomes,aes(x=step,y=nobleswealth,ymin = lownobles, ymax = highnobles), alpha=0.1) +
+  geom_ribbon(data = forincomes,aes(x=step,y=workerswealth,ymin = lowwork, ymax = highwork), alpha=0.1) +
+  geom_ribbon(data = forincomes,aes(x=step,y=farmscapital,ymin = lowfarms, ymax = highfarms), alpha=0.1) +
+  geom_ribbon(data = forincomes,aes(x=step,y=firmscapital,ymin = lowfirms, ymax = highfirms,), alpha=0.5) +
   labs(x = 'Time', y = 'Wealth' ) + #changes the plot to a line
   ggtitle('Wealth Averages') +
   scale_color_manual(name = "Classes", values = c("Bourgeoisies" = "orange", "Workers" = "red","Nobles" = "blue", "Farms" = "green", "Firms" = "yellow"))+
@@ -188,9 +202,13 @@ wealth <- ggplot(data = forincomes, aes(x=turn)) + ##produces the plot
   theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 
+wealth
+
 pdf(output_plot2)
 print(wealth)
 dev.off()
+
+####GDP
 
 gdp<- outputs %>%
   group_by(step) %>%
