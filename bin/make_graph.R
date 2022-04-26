@@ -69,8 +69,8 @@ firmsprice <- outputs %>%
 
 firmspricesshades <- outputs %>%
   group_by(step) %>%
-  summarize(highfirmpr = quantile(`mean-firms-price`, probs = 0.975),
-            lowfirmpr = quantile(`mean-firm-price`, probs = 0.025))
+  summarize(highfirmpr = quantile(`mean price of firms`, probs = 0.975),
+            lowfirmpr = quantile(`mean price of firms`, probs = 0.025))
 firmsprice <- merge(firmsprice,firmspricesshades, by = "step")
 
 
