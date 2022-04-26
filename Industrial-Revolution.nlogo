@@ -61,6 +61,7 @@ globals [
   government-check-1
   government-check-2
   government-check-3
+  kill-switch
 
   ;actual macro variables
   taxes
@@ -448,6 +449,7 @@ to go
 end
 
 to run-industrial-switching
+  set kill-switch 0
   set industrial-switching-check 0
   let not-industrialized firms with [industry? = false]
   let industrialized firms with [industry? = true]
@@ -456,6 +458,8 @@ to run-industrial-switching
   set industrial-switching-check (industrial-switching-check + 1)
   ask wannabe-industries [
     set industrial-switching-check (industrial-switching-check + 1)
+    set kill-switch (kill-switch + 1)
+    if kill-switch > (number-of-firms * 2) [stop]
     let available-capital 0
     let safe-cost 0
     let number random-float 1
@@ -485,6 +489,7 @@ end
 ;new model is unable to sustain revolution with no additional demand
 
 to run-labor-matching
+  set kill-switch 0
   set labor-check-1 0
   set labor-check-2 0
   set labor-check false
@@ -538,6 +543,8 @@ to run-labor-matching
   let actual-employers employers with [ capital > labor-price]
   ifelse (any? actual-employers) and (any? actually-unemployed) [
     ask actual-employers [
+      set kill-switch (kill-switch + 1)
+      if kill-switch > (number-of-workers) [stop]
       let hirable round (capital / labor-price)
       ifelse color = violet [
         set hirable min list (max-labor +(random seasonality)) hirable
@@ -591,12 +598,15 @@ to run-labor-matching
 end
 
 to run-production
+  set kill-switch 0
   set aggregate-farm-production 0
   set aggregate-industry-production 0
   set aggregate-services 0
   set production-check 0
   let producers turtles with [shape = "house"]
   ask producers [
+    set kill-switch (kill-switch + 1)
+    if kill-switch > (number-of-workers) [stop]
     set production-check (production-check + 1)
     set stock round ((labor * productivity) + stock)
     ifelse [color] of self = violet [
@@ -612,11 +622,14 @@ to run-production
 end
 
 to run-demand
+  set kill-switch 0
   set mean-farm-price mean [price] of farms
   set mean-firm-price mean [price] of firms
   set mean-service-price mean [price] of bourgeoisie
 
-ask workers [
+  ask workers [
+    set kill-switch (kill-switch + 1)
+    if kill-switch > (number-of-workers * 2) [stop]
     let income (wealth - previous-wealth)
     let spending random-normal income (income / distribution)
     ifelse income > 0 [
@@ -632,7 +645,11 @@ ask workers [
     ]
   ]
 
+  set kill-switch 0
+
   ask bourgeoisie [
+    set kill-switch (kill-switch + 1)
+    if kill-switch > (number-of-bourgeoisie * 3) [stop]
     let income (wealth - previous-wealth)
     ifelse income > 0 [
       let spending random-normal income (income / distribution)
@@ -649,8 +666,11 @@ ask workers [
       set needs 1
     ]
   ]
+  set kill-switch 0
 
   ask nobles [
+    set kill-switch (kill-switch + 1)
+    if kill-switch > (number-of-nobles *  3) [stop]
     let income (wealth - previous-wealth)
     ifelse income > 0 [
       let spending random-normal income (income / distribution)
@@ -684,6 +704,7 @@ end
 
 
 to run-food-market
+  set kill-switch 0
   let consumers turtles with [ shape = "person"]
   set aggregate-metabolism sum [metabolism] of consumers
   let available-food aggregate-farm-production
@@ -714,6 +735,8 @@ to run-food-market
         set government-check-1 (government-check-1 + 1)
       ]
       while [(metabolism > 0) and (wealth > minimum-price) and ( any? close-supply)] [
+        set kill-switch (kill-switch + 1)
+        if kill-switch > (number-of-workers * 5) [stop]
         ;let black-demand demand with [color = black]
         ;if any? black-demand [ask black-demand [set close-supply supply]]
         let low-price min-one-of close-supply [price]
@@ -762,6 +785,7 @@ to run-food-market
 end
 
  to run-goods-market
+  set kill-switch 0
   let consumers turtles with [ shape = "person"]
   set aggregate-goods-demand sum [needs] of consumers
   let available-goods aggregate-industry-production
@@ -779,6 +803,8 @@ end
         set government-check-1 (government-check-1 + 1)
       ]
       while [(needs > 0) and (wealth > minimum-price) and ( any? close-supply)] [
+        set kill-switch (kill-switch + 1)
+        if kill-switch > (number-of-workers * 5) [stop]
         ;let black-demand demand with [color = black]
         ;if any? black-demand [ask black-demand [set close-supply supply]]
         let low-price min-one-of close-supply [price]
@@ -821,6 +847,7 @@ end
 end
 
 to run-service-market
+  set kill-switch 0
   let consumers turtles with [ shape = "person"]
   set aggregate-services-demand sum [desires] of consumers
   let available-services aggregate-services
@@ -838,6 +865,8 @@ to run-service-market
         set government-check-1 (government-check-1 + 1)
       ]
       while [(desires > 0) and (wealth > minimum-price) and ( any? close-supply)] [
+        set kill-switch (kill-switch + 1)
+        if kill-switch > (number-of-workers * 5) [stop]
         ;let black-demand demand with [color = black]
         ;if any? black-demand [ask black-demand [set close-supply supply]]
         let low-price min-one-of close-supply [price]
@@ -881,6 +910,7 @@ end
 
 
 to run-dividends
+  set kill-switch 0
   set aggregate-dividends 0
   set aggregate-profits 0
   set failed-tick 0
@@ -1009,6 +1039,7 @@ to  run-price-adjustment
 end
 
 to  run-government
+  set kill-switch 0
   ask government [
     set bonds-sold 0
     set bonds 0
@@ -1031,6 +1062,8 @@ to  run-government
       let possible-bond-buyers households with [(color = blue) or (color = orange)]
       let bond-buyers possible-bond-buyers with [wealth > 100]
       while [(bonds > 0) and (any? bond-buyers)] [
+        set kill-switch (kill-switch + 1)
+        if kill-switch > (number-of-workers * 5) [stop]
         ask bond-buyers [
           set bonds (bonds + 1)
           set wealth (wealth - 100)
@@ -1048,6 +1081,7 @@ to  run-government
 end
 
 to run-substitution
+  set kill-switch 0
   let possible-breeders turtles with [(color = red) or (color = orange) and (shape = "person") ]
   let breeders possible-breeders with [  (kids > reproduction)]
   ask breeders  [
@@ -1598,8 +1632,7 @@ CHOOSER
 initial-labor-price
 initial-labor-price
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
-0
-
+5
 
 CHOOSER
 585
@@ -2786,8 +2819,6 @@ NetLogo 6.2.0
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
-
-
 @#$#@#$#@
 @#$#@#$#@
 default
