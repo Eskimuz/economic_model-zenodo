@@ -113,7 +113,7 @@ prices <- ggplot(data = forprices, aes(x=step)) + ##produces the plot
   theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 
-prices
+#prices
 
 pdf(output_plot1)
 print(prices)
@@ -202,7 +202,7 @@ wealth <- ggplot(data = forincomes, aes(x=step)) + ##produces the plot
   theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 
-wealth
+#wealth
 
 pdf(output_plot2)
 print(wealth)
@@ -305,7 +305,7 @@ forGDP <- ggplot(data = forgdp, aes(x=step)) + ##produces the plot
   theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
 
-forGDP
+#forGDP
 
 
 pdf(output_plot3)

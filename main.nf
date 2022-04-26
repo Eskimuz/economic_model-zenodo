@@ -74,6 +74,7 @@ Channel
 include { runModel } from "${baseDir}/modules/model.nf"
 include { xmlMod } from "${baseDir}/modules/xmlmod.nf"
 include { joinFiles } from "${baseDir}/modules/joinfiles.nf"
+include { makePlot } from "${baseDir}/modules/rplot.nf"
 
 Experiments = Channel.of( "testing1" )
 
@@ -104,7 +105,8 @@ workflow {
    		[ids[0], it[1]]
    }.groupTuple().set{files_pieces}
    
-   joinFiles(files_pieces)
+   concat_res = joinFiles(files_pieces)
+   makePlot(concat_res)
 //   res_model.groupTuple().view()
 }
 
