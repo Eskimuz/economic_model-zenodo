@@ -62,7 +62,6 @@
     <metric>GDP-spending</metric>
     <metric>labor-income-value</metric>
     <metric>land-income-value</metric>
-    <metric>service-income-value</metric>
     <metric>profit-income-value</metric>
     <enumeratedValueSet variable="initial-labor-price">
       <value value="15"/>
