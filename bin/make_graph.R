@@ -55,17 +55,17 @@ outputs <- read_csv(input_file,
 
 bourgeoisiesprice <- outputs %>%
   group_by(step) %>%
-  summarise_at(vars(`mean [price] of bourgeoisie`),list(bourgeoisieprices = mean))
+  summarise_at(vars(`mean price of bourgeoisie`),list(bourgeoisieprices = mean))
 
 bourgeoisiespricessshades <- outputs %>%
   group_by(step) %>%
-  summarize(highbourgpr = quantile(`mean [price] of bourgeoisie`, probs = 0.975),
-            lowbourgpr = quantile(`mean [price] of bourgeoisie`, probs = 0.025))
+  summarize(highbourgpr = quantile(`mean price of bourgeoisie`, probs = 0.975),
+            lowbourgpr = quantile(`mean price of bourgeoisie`, probs = 0.025))
 bourgeoisiesprice <- merge(bourgeoisiesprice,bourgeoisiespricessshades, by = "step")
 
 firmsprice <- outputs %>%
   group_by(step) %>%
-  summarise_at(vars(`mean [price] of firms`),list(firmsprices = mean))
+  summarise_at(vars(`mean price of firms`),list(firmsprices = mean))
 
 firmspricesshades <- outputs %>%
   group_by(step) %>%
@@ -124,31 +124,31 @@ dev.off()
 
 bourgeoisiesincomes <- outputs %>%
   group_by(step) %>%
-  summarise_at(vars(`mean [wealth] of bourgeoisie`),list(bourgeoisiewealth = mean))
+  summarise_at(vars(`mean wealth of bourgeoisie`),list(bourgeoisiewealth = mean))
 
 bourgeoisiesincomesshades <- outputs %>%
   group_by(step) %>%
-  summarize(highbourg = quantile(`mean [wealth] of bourgeoisie`, probs = 0.975),
-            lowbourg = quantile(`mean [wealth] of bourgeoisie`, probs = 0.025))
+  summarize(highbourg = quantile(`mean wealth of bourgeoisie`, probs = 0.975),
+            lowbourg = quantile(`mean wealth of bourgeoisie`, probs = 0.025))
 
 bourgeoisiesincomes <- merge(bourgeoisiesincomes,bourgeoisiesincomesshades, by = "step")
 
 workersincomes <- outputs %>%
   group_by(step) %>%
-  summarise_at(vars(`mean [wealth] of workers`), list(workerswealth = mean))
+  summarise_at(vars(`mean wealth of workers`), list(workerswealth = mean))
 workersincomesshades <- outputs %>%
   group_by(step) %>%
-  summarize(highwork = quantile(`mean [wealth] of workers`, probs = 0.975),
-            lowwork = quantile(`mean [wealth] of workers`, probs = 0.025))
+  summarize(highwork = quantile(`mean wealth of workers`, probs = 0.975),
+            lowwork = quantile(`mean wealth of workers`, probs = 0.025))
 workersincomes <- merge(workersincomes,workersincomesshades, by = "step")
 
 noblesincomes <- outputs %>%
   group_by(step) %>%
-  summarise_at(vars(`mean [wealth] of nobles`),list(nobleswealth = mean))
+  summarise_at(vars(`mean wealth of nobles`),list(nobleswealth = mean))
 noblesincomeshades <- outputs %>%
   group_by(step) %>%
-  summarize(highnobles = quantile(`mean [wealth] of nobles`, probs = 0.975),
-            lownobles = quantile(`mean [wealth] of nobles`, probs = 0.025))
+  summarize(highnobles = quantile(`mean wealth of nobles`, probs = 0.975),
+            lownobles = quantile(`mean wealth of nobles`, probs = 0.025))
 
 noblesincomes <- merge(noblesincomes,noblesincomeshades,by="step")
 
