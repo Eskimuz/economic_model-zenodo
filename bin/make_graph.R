@@ -98,6 +98,8 @@ forprices <- merge(forprices,farmsprice,by="step")
 forprices <- merge(forprices,salaries,by="step")
 
 prices <- ggplot(data = forprices, aes(x=step)) + ##produces the plot
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
   geom_line(aes(y=bourgeoisieprices,color="Bourgeoisie")) +
   geom_line(aes(y=firmsprices, color="Firms")) +
   geom_line(aes(y=farmsprices, color="Farms")) +
@@ -185,6 +187,8 @@ names<-c('bourgeoisies','workers','nobles','farms','firms')
 
 
 wealth <- ggplot(data = forincomes, aes(x=step)) + ##produces the plot
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
   geom_line(aes(y=bourgeoisiewealth,color='Bourgeoisies')) +
   geom_line(aes(y=workerswealth,color='Workers')) +
   geom_line(aes(y=nobleswealth,color='Nobles')) +
@@ -286,6 +290,8 @@ forgdp <- merge(forgdp,profits,by="step")
 
 
 forGDP <- ggplot(data = forgdp, aes(x=step)) + ##produces the plot
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
   geom_line(aes(y=GDP,color='GDP')) +
   geom_line(aes(y=goodsvalue,color='Goods')) +
   geom_line(aes(y=landvalue,color='Food')) +
