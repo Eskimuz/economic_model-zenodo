@@ -281,11 +281,26 @@ profitsshades<- outputs %>%
 profits<- merge(profits,profitsshades,by="step")
 
 
+realgdp<- outputs %>%
+  group_by(step) %>%
+  summarise_at(vars(`real-GDP-spending`),list(real=mean))
+
+realgdpshades<- outputs%>%
+  group_by(step) %>%
+  summarise(highreal = quantile(`real-GDP-spending`, probs = 0.975),
+            lowreal = quantile(`real-GDP-spending`, probs = 0.025))
+
+realgdp<- merge(realgdp,realgdpshades,by="step")
+
+
+
 forgdp <- merge(gdp,goods,by="step")
 forgdp <- merge(forgdp,land,by="step")
 forgdp <- merge(forgdp,labor,by="step")
 forgdp <- merge(forgdp,service,by="step")
 forgdp <- merge(forgdp,profits,by="step")
+forgdp <- merge(forgdp,realgdp,by="step")
+
 
 
 
@@ -298,19 +313,20 @@ forGDP <- ggplot(data = forgdp, aes(x=step)) + ##produces the plot
   geom_line(aes(y=servicevalue,color='Services')) +
   geom_line(aes(y=profitvalue,color='Profits')) +
   geom_line(aes(y=laborvalue,color='Labor')) +
+  geom_line(aes(y=real,color='Real GDP')) +
   geom_ribbon(data = forgdp,aes(x=step,y=GDP,ymin = lowgdp, ymax = highgdp), alpha=0.1) +
   geom_ribbon(data = forgdp,aes(x=step,y=goodsvalue,ymin = lowgoods, ymax = highgoods), alpha=0.1) +
   geom_ribbon(data = forgdp,aes(x=step,y=landvalue,ymin = lowland, ymax = highland), alpha=0.1) +
   geom_ribbon(data = forgdp,aes(x=step,y=servicevalue,ymin = lowservice, ymax = highservice), alpha=0.1) +
-  geom_ribbon(data = forgdp,aes(x=step,y=profitvalue,ymin = lowprofits, ymax = highprofits,), alpha=0.5) +
-  geom_ribbon(data = forgdp,aes(x=step,y=laborvalue,ymin = lowlabor, ymax = highlabor,), alpha=0.5) +
+  geom_ribbon(data = forgdp,aes(x=step,y=profitvalue,ymin = lowprofits, ymax = highprofits,), alpha=0.1) +
+  geom_ribbon(data = forgdp,aes(x=step,y=laborvalue,ymin = lowlabor, ymax = highlabor,), alpha=0.1) +
+  geom_ribbon(data = forgdp,aes(x=step,y=real,ymin = lowreal, ymax = highreal,), alpha=0.1) +
   labs(x = 'Time', y = 'Value' ) + #changes the plot to a line
   ggtitle('GDP and sectors contributions ') +
-  scale_color_manual(name = "Classes", values = c("GDP"="black","Services" = "orange", "Labor" = "red","Profits" = "blue", "Food" = "green", "Goods" = "yellow"))+
+  scale_color_manual(name = "Classes", values = c("GDP"="black","Real GDP"="black","Services" = "orange", "Labor" = "red","Profits" = "blue", "Food" = "green", "Goods" = "yellow"))+
   geom_vline(xintercept = 100) + #line for time change
   theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
                      panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
-
 #forGDP
 
 
