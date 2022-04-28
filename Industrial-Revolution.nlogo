@@ -717,6 +717,7 @@ to run-food-market
   set government-check-1 0
   set government-check-2 0
   set government-check-3 0
+  ask farms [set previous-capital capital]
 
 
 
@@ -924,12 +925,17 @@ to run-dividends
     ask farms [
     if capital <= mean-salaries [
       ask out-own-neighbors [
-        let transfer min ( list average-capital-farms ( 0.5 * wealth))
+        let transfer 0
+        let necessary-capital (max-labor * labor-price) 
+        ifelse capital > necessary-capital [set transfer (capital - necessary-capital)]
+          [set transfer (capital - previous-capital)]
+        if transfer > 0 [
         set wealth (wealth - transfer)
         ask myself [set capital (capital + transfer)]
+            ]
+        ]
       ]
     ]
-  ]
 
 
   ;; firms
