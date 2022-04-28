@@ -63,6 +63,7 @@
     <metric>labor-income-value</metric>
     <metric>land-income-value</metric>
     <metric>profit-income-value</metric>
+    <metric>real-GDP-spending</metric>
     <enumeratedValueSet variable="initial-labor-price">
       <value value="15"/>
     </enumeratedValueSet>
