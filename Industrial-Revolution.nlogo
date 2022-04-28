@@ -924,7 +924,7 @@ to run-dividends
   ]
 
   ;; farms
-    ask farms [
+  ask farms [
     if capital <= mean-salaries [
       ask out-own-neighbors [
         let transfer min ( list average-capital-farms ( 0.5 * wealth))
@@ -933,7 +933,7 @@ to run-dividends
       ]
     ]
   ]
-
+  
 
   ;; firms
     ask firms [
@@ -947,6 +947,7 @@ to run-dividends
       die
     ]
   ]
+  
 
   let employers turtles with [shape = "house"]
   ask employers [
@@ -965,6 +966,10 @@ to run-dividends
           set dividends ( capital - (trans-cost * (safe-zone * 2)))
         ]
       ]
+      if color = violet [
+        let limit (max-labor * labor-price)
+        if capital > limit [ set dividends (dividends + (capital - limit))]
+        ]
       set aggregate-dividends (aggregate-dividends + dividends)
       set capital (capital - dividends)
       let owners count out-own-neighbors ;;just in case a family splits and both mantain ownership
