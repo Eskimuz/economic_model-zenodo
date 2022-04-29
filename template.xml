@@ -109,6 +109,9 @@
     <enumeratedValueSet variable="trans-cost">
       <value value="1500"/>
     </enumeratedValueSet>
+    <enumeratedValueSet variable="trans-cost-multiplier">
+      <value value="150"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="price-change-chance">
       <value value="0.3"/>
     </enumeratedValueSet>
