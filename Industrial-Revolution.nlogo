@@ -448,7 +448,8 @@ to go
   tick
 end
 
-to run-industrial-switching
+  let mean-labor-price mean [labor-price] of firms
+  set trans-cost (mean-labor-price * trans-cost-multiplier)
   set kill-switch 0
   set industrial-switching-check 0
   let not-industrialized firms with [industry? = false]
@@ -456,7 +457,6 @@ to run-industrial-switching
   let coal-industry not-industrialized with [coal? = true]
   let wannabe-industries coal-industry with [industrywannabe? = true]
   set industrial-switching-check (industrial-switching-check + 1)
-  let mean-labor-price mean [labor-price] of workers 
   let different (mean-labor-price - initial-labor-price)
   let cost-increase (different / initial-labor-price)
   ask wannabe-industries [
@@ -469,7 +469,8 @@ to run-industrial-switching
     let owner-capital 0
     let close-firms industrialized in-radius (distance-setup / 2)
     let number-industry min (list 5 ((count close-firms) / 2))
-    set safe-cost ((1 + (random-float safe-zone)) * (trans-cost * cost-increase * (1 - (number-industry) / 10)))
+;   set safe-cost ((1 + (random-float safe-zone)) * (trans-cost * cost-increase * (1 - (number-industry) / 10))) 
+    set safe-cost ((1 + (random-float safe-zone)) * (trans-cost * (1 - (number-industry) / 10)))
     set owner-capital [wealth] of one-of out-own-neighbors
     set available-capital (owner-capital + capital)
     if available-capital >= safe-cost and (number < industrial-switch-probability) [
