@@ -449,7 +449,7 @@ to go
 end
 
   let mean-labor-price mean [labor-price] of firms
-  set trans-cost (mean-labor-price * trans-cost-multiplier)
+  set trans-cost2 (mean-labor-price * trans-cost-multiplier)
   set kill-switch 0
   set industrial-switching-check 0
   let not-industrialized firms with [industry? = false]
@@ -470,7 +470,7 @@ end
     let close-firms industrialized in-radius (distance-setup / 2)
     let number-industry min (list 5 ((count close-firms) / 2))
 ;   set safe-cost ((1 + (random-float safe-zone)) * (trans-cost * cost-increase * (1 - (number-industry) / 10))) 
-    set safe-cost ((1 + (random-float safe-zone)) * (trans-cost * (1 - (number-industry) / 10)))
+    set safe-cost ((1 + (random-float safe-zone)) * (trans-cost2 * (1 - (number-industry) / 10)))
     set owner-capital [wealth] of one-of out-own-neighbors
     set available-capital (owner-capital + capital)
     if available-capital >= safe-cost and (number < industrial-switch-probability) [
@@ -1962,6 +1962,16 @@ initial-industrial-productivity
 initial-industrial-productivity
 5 8 10 12 15
 4
+
+CHOOSER
+724
+315
+901
+360
+trans-cost-multiplier
+trans-cost-multiplier
+50 100 150 200 250
+1
 
 TEXTBOX
 375
