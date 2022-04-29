@@ -471,8 +471,8 @@ to run-industrial-switching
     let owner-capital 0
     let close-firms industrialized in-radius (distance-setup / 2)
     let number-industry min (list 5 ((count close-firms) / 2))
-;   set safe-cost ((1 + (random-float safe-zone)) * (trans-cost * cost-increase * (1 - (number-industry) / 10))) 
-    set safe-cost ((1 + (random-float safe-zone)) * (trans-cost2 * (1 - (number-industry) / 10)))
+    set safe-cost ((1 + (random-float safe-zone)) * (trans-cost * cost-increase * (1 - (number-industry) / 10))) 
+    ;set safe-cost ((1 + (random-float safe-zone)) * (trans-cost2 * (1 - (number-industry) / 10)))
     set owner-capital [wealth] of one-of out-own-neighbors
     set available-capital (owner-capital + capital)
     if available-capital >= safe-cost and (number < industrial-switch-probability) [
