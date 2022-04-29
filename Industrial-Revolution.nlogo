@@ -448,8 +448,10 @@ to go
   tick
 end
 
+
+to run-industrial-switching
   let mean-labor-price mean [labor-price] of firms
-  set trans-cost2 (mean-labor-price * trans-cost-multiplier)
+  let trans-cost2 (mean-labor-price * trans-cost-multiplier)
   set kill-switch 0
   set industrial-switching-check 0
   let not-industrialized firms with [industry? = false]
