@@ -67,7 +67,7 @@
     <enumeratedValueSet variable="initial-labor-price">
       <value value="15"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-capital-firms">
+    <enumeratedValueSet variable="initial-capital">
       <value value="500"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="government-demand">
@@ -130,8 +130,8 @@
     <enumeratedValueSet variable="firm-productivity">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-capital-farms">
-      <value value="500"/>
+    <enumeratedValueSet variable="starting-seed">
+      <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="time">
       <value value="100"/>
