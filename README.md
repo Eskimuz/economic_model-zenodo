@@ -1,99 +1,91 @@
-# economic_model
-revenge against capitalism
+# Spinning Jenny
 
-programs needed: Netlogo and Java. 
-Netlogo requires Java-Home to be specified for running headless, see https://ccl.northwestern.edu/netlogo/docs/behaviorspace.html#examples
-runs can be programmed directly in XML (I'm not familiar tho, you?)
-
-Netlogo has a built in Monte-Carlo simulator called behaviorspace: https://ccl.northwestern.edu/netlogo/docs/behaviorspace.html
-
-Run new file Industrial-Revolution-17-01-2022, rewritten and corrected:
--fixed loop bug
--fixed bourgeoisie behavior
--new generation of firms that follows population
--no foreign market
--no unemployment random money generation
--government feature can be switched off
-
-in installation folder run netlogo.headless
-use Industrial-Revolution-old.nlogo
+This pipeline requires Nextflow and one between Docker or Singularity. For installing Nextflow type:
 
 ```
---model (insert local path to folder here/ "Industrial-Revolution-old.nlogo") \
---experiment "low-initial-wages-no-government" 
---table "(insert path here)" 
---experiment "low-initial-wages-yes-government" 
---table "(insert path here)" 
---experiment "high-initial-wages-no-government" 
---table "(insert path here)" 
---experiment "high-initial-wages-yes-government" 
---table "(insert path here)" 
+curl -s https://get.nextflow.io | bash
 ```
 
-use table command for setting the output destination, names are already in experiment. Path should use \ to separate folders  
+- For Docker follow the instructions here: https://docs.docker.com/get-docker/
+- For Singularity instead: https://sylabs.io/guides/latest/admin-guide/installation.html
 
-details on table vs spreasheet command
-https://ccl.northwestern.edu/netlogo/docs/behaviorspace.html#run-options-formats
+## Docker images
+Tools needed for running the pipelines are wrapped into docker images and stored in DockerHub. They are automatically retrieved by Nextflow. 
 
-
-output should be automatic
-
-
-for testing.xml:
-
-modify values for initial-labor-price-workers - initial-labor-price-employers -> they MUST have the SAME VALUE
-[5 6 7 8 9 10 11 12 13 14 15]
-
-
-XML HERE
-
-https://ccl.northwestern.edu/netlogo/docs/behaviorspace.html#setting-up-experiments-in-xml
-
-I don't understand how to run it tho, the instructions are there
-  
-
-to do:
-
-- program the headless function of netlogo
-- run the 3.6 million simulations
-- create a pipeline for analyzing the results
-
-look into https://pynetlogo.readthedocs.io/en/latest/install.html
-
-# Docker images
-The images are in docker hub with this names:
-- biocorecrg/econ:0.1 (netlogo)
-- biocorecrg/econ_r:0.1 (R and its packages)
-
-# Launching the tool
-
-## Docker
+## Installing the pipeline
+You can clone the repository by doing
 
 ```
-docker run -v /Users/lcozzuto/aaa/test/economic_model/:/project -it biocorecrg/econ:0.01 /bin/bash
+git clone git@github.com:lucacozzuto/economic_model.git
+```
 
-netlogo-headless.sh  --model Industrial-Revolution.nlogo --experiment "high-initial-wages-yes-government"  --table high-initial-wages-yes-government.tsv --setup-file Experiments-thesis.txt 
+## Installing the pipeline
 
+Then you can launch it specifying either docker or singularity engines:
+
+With Docker:
+
+```
+cd economic_model;
+
+nextflow run  main.nf -with-docker -bg  > log
+``` 
+
+or with Singularity:
+
+```
+nextflow run  main.nf -with-singularity -bg  > log
+```
+
+## Input and Output
+The inputs are specified within the file **params.config** tha contains:
+
+- the number of batches: number of times you want to run each execution to obtain 8 repetitions per batch.
+- the template xml file name
+- the values file name
+- the output folder name
+
+You can change those default values by editing the file or using two dashes (**--**) when running the pipeline:
+
+```
+nextflow run  main.nf -with-singularity -bg --batches 125 > log
+```
+
+The file **template** contains the **xml** needed by NetLogo for running the model. The default one is named template.xml and given in this repository.
+The file **values** contains the name of the parameters and their starting, final and step values for making several simulations. The output of those simulation will be named:
+
+```
+PLOTS -> {PARAMETER_NAME}_{VALUE}_{PLOT_ID}.pdf 
+TXT   -> {PARAMETER_NAME}_{VALUE}_{PLOT_ID}._cat.txt 
+```
+
+The default file for value is **values.txt** and will give those files as output:
+
+```
+initial-labor-price_10_1.pdf    initial-labor-price_15_3.pdf
+initial-labor-price_10_2.pdf    initial-labor-price_15_cat.txt
+initial-labor-price_10_3.pdf    initial-labor-price_5_1.pdf
+initial-labor-price_10_cat.txt  initial-labor-price_5_2.pdf
+initial-labor-price_15_1.pdf    initial-labor-price_5_3.pdf
+initial-labor-price_15_2.pdf    initial-labor-price_5_cat.txt
 
 ```
 
 
-## Singularity
-Building the image
+## Running the pipeline in a cluster
+We provide multiple configuration for running the pipeline in different environments. Just using different profiles will allow to use different specifications. For example running the pipeline in a SGE based cluster will be:
 
 ```
-singularity pull docker://biocorecrg/econ:0.1
+nextflow run main.nf -with-singularity -profile sge -bg > log.txt
 ```
 
-Executing it:
+We provide the following possibilities:
 
-```
-singularity exec -e singularity/econ_0.01.sif ./netlogo-headless.sh \
---model Industrial-Revolution.nlogo \
---experiment "high-initial-wages-yes-government"  \
---table high-initial-wages-yes-government.tsv \
---setup-file Experiments-thesis.xml --threads 38
-```
+- awsbatch
+- sge
+- slurm
+- local
+
 
 
 
