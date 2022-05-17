@@ -125,6 +125,7 @@ globals [
 
   ;new substitution mechanism?
   failed-tick
+  starting-seed 
 ]
 
 
@@ -243,6 +244,7 @@ patches-own [
 to setup
   clear-all
   clear-globals
+  set starting-seed new-seed
   random-seed starting-seed
  ;;; parameters initial setup, remember to change for experiment
   setup-patches
@@ -1998,17 +2000,6 @@ workers with [farm? = true]
 17
 1
 11
-
-INPUTBOX
-825
-446
-903
-506
-starting-seed
-1.0
-1
-0
-Number
 
 INPUTBOX
 438
