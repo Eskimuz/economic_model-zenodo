@@ -2,11 +2,11 @@
 <!DOCTYPE experiments SYSTEM "behaviorspace.dtd">  
 
 <experiments>
-<experiment name="testing1" repetitions="10" sequentialRunOrder="false" runMetricsEveryStep="true">
+<experiment name="testing1" repetitions="8" sequentialRunOrder="false" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <final>export-world ( word "testing1" random-float 1.0 ".csv")</final>
-    <timeLimit steps="1"/>
+    <timeLimit steps="200"/>
     <metric>starting-seed</metric>
     <metric>mean [price] of farms</metric>
     <metric>mean [price] of firms</metric>

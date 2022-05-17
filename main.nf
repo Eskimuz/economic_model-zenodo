@@ -27,6 +27,7 @@ log.info """
 ====================================================
 batches                     : ${params.batches}
 values                      : ${params.values}
+template                    : ${params.template}
 output (output folder)      : ${params.output}
 """
 
@@ -40,10 +41,11 @@ if (params.resume) exit 1, "Are you making the classical --resume typo? Be caref
 
 
 nlogo = file("${projectDir}/Industrial-Revolution.nlogo")
-xmlfile = file("${projectDir}/template.xml")
+nlogo = file("${projectDir}/Industrial-Revolution.nlogo")
+xmlfile = file(params.template)
 
 if( !nlogo.exists() ) exit 1, "Missing Industrial-Revolution.nlogo file!"
-if( !xmlfile.exists() ) exit 1, "Missing template.xml file!"
+if( !xmlfile.exists() ) exit 1, "Missing template xml file!"
 
 // Setting the reference genome file and the annotation file (validation)
 values = file(params.values)
