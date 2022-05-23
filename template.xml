@@ -87,7 +87,7 @@
       <value value="10000"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="markup">
-      <value value="3"/>
+      <value value="2"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="number-of-nobles">
       <value value="50"/>
