@@ -6,7 +6,7 @@
     <setup>setup</setup>
     <go>go</go>
     <final>export-world ( word "testing1" random-float 1.0 ".csv")</final>
-    <timeLimit steps="200"/>
+    <timeLimit steps="300"/>
     <metric>starting-seed</metric>
     <metric>mean [price] of farms</metric>
     <metric>mean [price] of firms</metric>
