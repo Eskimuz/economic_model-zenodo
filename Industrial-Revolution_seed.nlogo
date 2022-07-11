@@ -530,7 +530,7 @@ to run-labor-matching
       set labor-check-1 (labor-check-1 + 1)
     ]
     ask government [
-      let labor-expense (wage + government-workers)
+      let labor-expense (wage * government-workers)
       set wealth (wealth - labor-expense)
       set labor count workers with [state? = true]
     ]
