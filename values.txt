@@ -1,1 +1,7 @@
 initial-labor-price	5	15	5
+change-chance 0.1 0.2 0.5
+trans-cost-multiplier 150 200 300
+price-change-chance 0.1 0.3 0.5
+industrial-switch-probability 0.05 0.1 0.2 0.4
+price-delta 0.1 0.2 0.5
+distance-setup 3 5 7 9
