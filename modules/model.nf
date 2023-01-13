@@ -1,5 +1,5 @@
 process runModel {
-    container 'biocorecrg/econ:0.01'
+    container 'biocorecrg/econ:0.02'
    
  
     tag { "${experiment} on ${id}" }
@@ -14,7 +14,7 @@ process runModel {
     
 	script:
     """
-	netlogo-headless.sh  --model ${nlogo} \
+	netlogo-headless.sh -Xmx${task.memory.mega}m --model ${nlogo} \
 	--experiment "${experiment}" --table ${id}_${experiment}.txt \
 	--setup-file ${setup} --threads ${task.cpus}
     """

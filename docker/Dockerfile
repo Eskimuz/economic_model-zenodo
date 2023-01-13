@@ -1,4 +1,4 @@
-# biocorecrg/econ:0.01
+# biocorecrg/econ:0.02
 # Launch using netlogo-headless.sh
 FROM biocorecrg/debian-perlbrew-pyenv3-java:buster
 
@@ -13,4 +13,7 @@ RUN tar -xvzf netlogo.tgz && \
     rm netlogo.tgz && \
     mv NetLogo* $NETLOGO_HOME
 
+COPY ./netlogo-headless.sh $NETLOGO_HOME
+
 ENV PATH ${PATH}:${NETLOGO_HOME}
+

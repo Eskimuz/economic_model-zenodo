@@ -61,13 +61,13 @@ Channel
     .map { line ->
         list = line.split("\t")
             if (list.length <2) {
-			  error "ERROR!!! Peak config file has to be tab separated\n" 
+			  error "ERROR!!! Values file has to be tab separated\n" 
 	        }        
 	        if (list[0]!= "") {
 	        	param_name = list[0]
-				initial_val = list[1]
-				final_val = list[2]
-				step_val = list[3]
+			initial_val = list[1]
+			final_val = list[2]
+			step_val = list[3]
 			[ param_name, initial_val, final_val, step_val ]
         }  
     }.set{ pipe_params}
@@ -81,9 +81,9 @@ include { makePlot } from "${baseDir}/modules/rplot.nf"
 Experiments = Channel.of( "testing1" )
 
 pipe_params.map {
-	def int start = it[1].toInteger()
-	def int fin = it[2].toInteger()
-	def int step = it[3].toInteger()
+	def BigDecimal start = Float.parseFloat(it[1])
+	def BigDecimal fin = Float.parseFloat(it[2])
+	def BigDecimal step = Float.parseFloat(it[3])
 	def ranges = []
 	for (i = fin; i > start; i-=step) {
 		ranges.push(i)
