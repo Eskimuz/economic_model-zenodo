@@ -26,7 +26,6 @@
     <metric>labor-income-value</metric>
     <metric>landlord-income-value</metric>
     <metric>profit-income-value</metric>
-    <metric>labor-income-value</metric>
     <metric>land-income-value</metric>
     <metric>goods-income-value</metric>
     <metric>service-income-value</metric>
